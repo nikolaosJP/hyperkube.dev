@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post // hypercube.dev</title>
+
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js" as="script">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
+
+    <style>
+        :root {
+            --bg-black: #050505;
+            --grid-size: 20px;
+            --grid-color: rgba(34, 197, 94, 0.11);
+
+            --terminal-green: #22c55e;
+            --text-main: #e5e5e5;
+            --text-muted: #888;
+            --border-color: #333;
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Inter', sans-serif;
+            --max-width: 1400px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-y: scroll; scrollbar-gutter: stable; overscroll-behavior-y: contain; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.8;
+            background-size: var(--grid-size) var(--grid-size);
+            background-image: radial-gradient(var(--grid-color) 1px, transparent 1px);
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        a:hover { color: var(--terminal-green); }
+        .green { color: var(--terminal-green); }
+
+        /* ============================================
+           NAVIGATION - MUST BE IDENTICAL ON ALL PAGES
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 0;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            line-height: 1;
+        }
+        nav .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .nav-links a {
+            transition: color 0.2s;
+            color: var(--text-muted);
+        }
+        .nav-links a:hover {
+            color: var(--terminal-green);
+        }
+        .nav-links span {
+            cursor: pointer;
+            transition: color 0.2s;
+            color: var(--text-muted);
+        }
+        .nav-links span:hover {
+            color: var(--terminal-green);
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+        /* ============================================ */
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+        .post-wrapper {
+            max-width: var(--max-width);
+            margin: 120px auto 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 200px 1fr 240px;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* LEFT SIDEBAR NAV */
+        .left-sidebar { position: sticky; top: 120px; font-family: var(--font-mono); font-size: 0.9rem; }
+
+        .about-widget { margin-bottom: 1.5rem; }
+        .about-title { font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; display: block; }
+        .about-text { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; font-family: var(--font-sans); }
+
+        .nav-separator { border: none; height: 1px; background: #222; margin: 1.5rem 0; }
+
+        .nav-list { list-style: none; padding: 0; margin: 0; }
+        .nav-list li { margin-bottom: 0.8rem; }
+        .nav-list a { color: var(--text-muted); display: block; transition: transform 0.2s, color 0.2s; font-size: 0.9rem; }
+        .nav-list a:hover { color: var(--text-main); transform: translateX(3px); }
+
+        /* RIGHT SIDEBAR TOC */
+        .right-sidebar { position: sticky; top: 120px; }
+        .toc-title { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .toc-list { list-style: none; padding: 0; margin: 0; border-left: 1px solid #222; }
+        .toc-list ul { list-style: none; padding: 0; margin: 0; }
+        .toc-item { display: block; padding: 5px 0 5px 20px; font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid transparent; margin-left: -1px; transition: color 0.2s, border-color 0.2s; }
+        .toc-item:hover { color: var(--terminal-green); }
+        .toc-item.active { color: var(--terminal-green); border-left-color: var(--terminal-green); font-weight: 600; }
+        .toc-subitem { display: block; padding: 4px 0 4px 35px; font-size: 0.8rem; color: var(--text-muted); border-left: 2px solid transparent; margin-left: -1px; transition: color 0.2s, border-color 0.2s; font-family: var(--font-sans); }
+        .toc-subitem:hover { color: var(--terminal-green); }
+        .toc-subitem.active { color: var(--terminal-green); border-left-color: var(--terminal-green); }
+
+        /* ARTICLE CONTENT */
+        article { min-width: 0; }
+        .post-header { margin-bottom: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 2rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.2; letter-spacing: -1px; font-weight: 800; }
+        .post-meta { font-family: var(--font-mono); color: var(--text-muted); font-size: 0.9rem; display: flex; gap: 20px; }
+
+        section { scroll-margin-top: 120px; }
+        h2, h3 { margin-top: 3rem; font-family: var(--font-mono); font-size: 1.6rem; display: flex; align-items: center; gap: 10px; scroll-margin-top: 120px; user-select: none; cursor: default; }
+        h2 .heading-prefix, h3 .heading-prefix { color: var(--terminal-green); font-size: 1.2rem; }
+
+        h4 { margin-top: 2rem; font-family: var(--font-mono); font-size: 1.2rem; color: var(--text-main); scroll-margin-top: 100px; }
+
+        p { color: #ccc; font-size: 1.05rem; margin-bottom: 1.5rem; }
+
+        ul, ol { color: #ccc; font-size: 1.05rem; margin-bottom: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        #post-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 2rem auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: zoom-in;
+        }
+
+        .image-lightbox-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 1.5rem;
+            z-index: 120;
+            overflow: hidden;
+        }
+        .image-lightbox-backdrop.scrollable { overflow: auto; }
+        .image-lightbox-content {
+            position: relative;
+            max-width: none;
+            max-height: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+            overflow: visible;
+        }
+        .image-lightbox-content img {
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 1px solid #222;
+            display: block;
+            background: #0b0b0b;
+            cursor: zoom-in;
+            will-change: transform;
+        }
+        .image-lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(15, 15, 15, 0.85);
+            color: #f5f5f5;
+            border: 1px solid #2f2f2f;
+            border-radius: 12px;
+            padding: 6px 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+        }
+        .image-lightbox-close:hover {
+            background: rgba(40, 40, 40, 0.92);
+            border-color: #3a3a3a;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 6px 16px rgba(0, 0, 0, 0.35);
+        }
+        .image-lightbox-content img.fit-view {
+            max-width: 95vw;
+            max-height: 95vh;
+            cursor: zoom-in;
+        }
+        .image-lightbox-content img.zoomed {
+            max-width: none;
+            max-height: none;
+            cursor: zoom-out;
+        }
+
+        pre {
+            background: #0f0f0f; border: 1px solid var(--border-color); padding: 1.5rem;
+            border-radius: 6px; overflow-x: auto; margin: 2rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        code { font-family: var(--font-mono); font-size: 0.9rem; color: #ccc; }
+        .inline-code { background: rgba(34, 197, 94, 0.1); color: var(--terminal-green); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85em; }
+
+        @media (max-width: 1000px) {
+            .post-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">hypercube<span class="green">.dev</span></a>
+            <div class="nav-links">
+                <a href="index.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Terminal</a>
+                <a href="post.html?id=about" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> About</a>
+                <a href="projects-blog.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Projects</a>
+                <a href="blog.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Blog</a>
+                <a href="index.html#skills" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Skills</a>
+                <a href="index.html#contact" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="post-wrapper">
+
+        <aside class="left-sidebar">
+            <div class="about-widget">
+                <span class="about-title">About Me</span>
+                <p class="about-text">Applied AI scientist optimizing intelligent systems. This is my vertical farm; mind the experimental flora.</p>
+            </div>
+
+            <hr class="nav-separator">
+
+            <ul class="nav-list">
+                <li><a href="index.html">Terminal</a></li>
+                <li><a href="post.html?id=about">About</a></li>
+                <li><a href="projects-blog.html">Projects</a></li>
+                <li><a href="blog.html">Articles</a></li>
+            </ul>
+
+            <hr class="nav-separator">
+
+            <ul class="nav-list">
+                <li><a href="https://github.com/nikolaosJP" target="_blank">GitHub ↗</a></li>
+                <li><a href="https://www.linkedin.com/in/nickiliopoulos" target="_blank">LinkedIn ↗</a></li>
+            </ul>
+        </aside>
+
+        <article id="post-content">
+            <div style="text-align: center; padding: 4rem 0;">
+                <div style="color: #666;">Loading...</div>
+            </div>
+        </article>
+
+        <aside class="right-sidebar">
+            <div class="toc-title">Table of Contents</div>
+            <ul class="toc-list" id="table-of-contents">
+                <li><a href="#top" class="toc-item">Loading...</a></li>
+            </ul>
+        </aside>
+
+    </div>
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+
+    <script>
+        // Navigation and heading hover effects - Optimized with caching
+        const chars = ['>', '#', '*', '_', '!', '?', '$', '/', ':', '+'];
+        const charsLen = chars.length;
+        const prefixCache = new WeakMap();
+
+        function getPrefix(el, className) {
+            if (!prefixCache.has(el)) {
+                prefixCache.set(el, el.querySelector(className));
+            }
+            return prefixCache.get(el);
+        }
+
+        function handleNavEnter(el) {
+            const span = getPrefix(el, '.nav-prefix');
+            if (span) span.textContent = chars[~~(Math.random() * charsLen)] + chars[~~(Math.random() * charsLen)];
+        }
+        function handleNavLeave(el) {
+            const span = getPrefix(el, '.nav-prefix');
+            if (span) span.textContent = "//";
+        }
+        function handleHeadingEnter(el) {
+            const span = getPrefix(el, '.heading-prefix');
+            if (span) span.textContent = chars[~~(Math.random() * charsLen)] + chars[~~(Math.random() * charsLen)];
+        }
+        function handleHeadingLeave(el) {
+            const span = getPrefix(el, '.heading-prefix');
+            if (span) span.textContent = "##";
+        }
+        window.handleNavEnter = handleNavEnter;
+        window.handleNavLeave = handleNavLeave;
+        window.handleHeadingEnter = handleHeadingEnter;
+        window.handleHeadingLeave = handleHeadingLeave;
+    </script>
+
+    <script>
+        // Parse frontmatter from markdown
+        function parseFrontmatter(markdown) {
+            const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+            const match = markdown.match(frontmatterRegex);
+
+            if (!match) {
+                return { metadata: {}, content: markdown };
+            }
+
+            const frontmatter = match[1];
+            const content = match[2];
+            const metadata = {};
+
+            frontmatter.split('\n').forEach(line => {
+                const [key, ...valueParts] = line.split(':');
+                if (key && valueParts.length) {
+                    metadata[key.trim()] = valueParts.join(':').trim();
+                }
+            });
+
+            return { metadata, content };
+        }
+
+        // Convert markdown headings to sections with IDs
+        function processMarkdownToSections(html) {
+            // Wrap content between headings in sections
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            const headings = tempDiv.querySelectorAll('h2, h3, h4');
+            headings.forEach((heading, index) => {
+                const id = heading.textContent.toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '');
+
+                // Add prefix span and hover handlers to h2 and h3
+                if (heading.tagName === 'H2' || heading.tagName === 'H3') {
+                    const text = heading.textContent;
+                    heading.dataset.title = text; // preserve clean title for TOC
+                    heading.innerHTML = `<span class="heading-prefix">##</span> ${text}`;
+                    heading.setAttribute('onmouseenter', 'handleHeadingEnter(this)');
+                    heading.setAttribute('onmouseleave', 'handleHeadingLeave(this)');
+                } else {
+                    // Preserve raw title for headings without prefix spans
+                    heading.dataset.title = heading.textContent;
+                }
+
+                // Find the next heading or end of content
+                let currentElement = heading;
+                const sectionContent = [];
+
+                while (currentElement.nextElementSibling &&
+                       !['H2', 'H3', 'H4'].includes(currentElement.nextElementSibling.tagName)) {
+                    sectionContent.push(currentElement.nextElementSibling);
+                    currentElement = currentElement.nextElementSibling;
+                }
+
+                // Create section wrapper
+                const section = document.createElement('section');
+                section.id = id;
+                section.appendChild(heading.cloneNode(true));
+                sectionContent.forEach(el => section.appendChild(el.cloneNode(true)));
+
+                // Replace original heading with section
+                heading.parentNode.replaceChild(section, heading);
+
+                // Remove the original elements that are now in the section
+                sectionContent.forEach(el => {
+                    if (el.parentNode) el.remove();
+                });
+            });
+
+            return tempDiv.innerHTML;
+        }
+
+        // Memory cache for parsed posts
+        const postCache = new Map();
+
+        // Optimized: Load post from markdown file with caching and parallel fetching
+        async function loadPost(postId) {
+            // Check memory cache first
+            if (postCache.has(postId)) {
+                return postCache.get(postId);
+            }
+
+            // Try all categories in parallel (much faster!)
+            const categories = ['about', 'projects', 'blog'];
+            const fetchPromises = categories.map(category =>
+                fetch(`content/${category}/${postId}.md`)
+                    .then(response => response.ok ? response.text().then(text => ({ category, text })) : null)
+                    .catch(() => null)
+            );
+
+            const results = await Promise.all(fetchPromises);
+            const successfulResult = results.find(result => result !== null);
+
+            if (!successfulResult) {
+                console.error('Post not found:', postId);
+                return null;
+            }
+
+            const { category, text: markdown } = successfulResult;
+            const { metadata, content } = parseFrontmatter(markdown);
+
+            // Convert markdown to HTML
+            const htmlContent = marked.parse(content);
+            const processedContent = processMarkdownToSections(htmlContent);
+
+            const post = {
+                title: metadata.title || 'Untitled',
+                date: metadata.date || '',
+                tags: metadata.tags || '',
+                content: processedContent,
+                category: category
+            };
+
+            // Cache the parsed result
+            postCache.set(postId, post);
+
+            return post;
+        }
+
+        // Legacy posts object (keeping for backwards compatibility)
+        const posts = {
+            'about': {
+                title: "About Me",
+                date: "2025",
+                tags: "#Human #Builder #PizzaEnthusiast",
+                content: `
+                    <section id="intro">
+                        <p>Hey there! Welcome to my little corner of the internet where I dump thoughts, code snippets, half-baked ideas, and the occasional tutorial that actually works.</p>
+                        <p>This site is where I share things I've learned building AI systems, trading tools, and whatever else catches my curiosity. You'll find technical write-ups, project notes, and probably too many references to pizza.</p>
+                        <p>No ads, no AI slop, no affiliate links, no tracking scripts, no paywalls. Just a human writing about things they find interesting. Novel concept, I know.</p>
+                    </section>
+                    <section id="me">
+                        <h3>The human behind the terminal</h3>
+                        <p>I build intelligent systems for fintech—mostly agents that make trading decisions and manage risk without setting everything on fire. Former climate scientist who traded hurricanes for high-frequency trading (the volatility is about the same).</p>
+                        <p>When I'm not debugging production incidents at 3am, you'll find me:</p>
+                        <ul>
+                            <li>Jumping out of perfectly good airplanes</li>
+                            <li>Arguing about the correct way to make pizza (it's Neapolitan, fight me)</li>
+                            <li>Tinkering with Rust projects that will never see production</li>
+                            <li>Reading papers I barely understand and pretending I do</li>
+                        </ul>
+                        <p>I believe in shipping quickly, observing religiously, and being honest about what works and what doesn't. Also strongly believe that the best code is the code you don't write.</p>
+                    </section>
+                    <section id="stack">
+                        <h3>What I mess with</h3>
+                        <p>Professionally: LLM agents, quantitative systems, time-series shenanigans, microstructure analytics, and making dashboards that people actually use.</p>
+                        <p>Tech-wise: Node.js, Python, Rust (aspirationally), React/Next for when designs need to become real things, and whatever else solves the problem.</p>
+                        <p>I like systems that are clever enough to be interesting but simple enough to debug at 3am. Bonus points if they don't require a PhD to understand.</p>
+                    </section>
+                    <section id="site">
+                        <h3>About this site</h3>
+                        <p>Built with vanilla JS because sometimes you don't need a framework. Designed to be fast, accessible, and readable on any device from a phone to a terminal browser.</p>
+                        <p>If you want to stay updated when I post something new, there's an RSS feed somewhere around here. Or don't—I'm not your mom.</p>
+                        <p>Hope you find something useful. Or at least mildly entertaining.</p>
+                    </section>
+                `
+            },
+            'echarts-react': {
+                title: "Integrating Apache ECharts with React & GPT-4",
+                date: "November 24, 2025",
+                tags: "#React #AI #DataViz",
+                content: `
+                    <section id="intro">
+                        <p>Apache ECharts is a powerful visualization library, and when combined with React and AI, it enables dynamic, data-driven dashboards that adapt to user needs.</p>
+                    </section>
+                    <section id="challenge">
+                        <h3>The Challenge</h3>
+                        <p>Traditional dashboards require manual configuration for each visualization. What if we could use GPT-4 to generate chart configurations based on natural language queries?</p>
+                    </section>
+                    <section id="implementation">
+                        <h3>Implementation</h3>
+                        <p>We built a React component that takes user prompts, sends them to GPT-4, and receives ECharts configuration objects in response. The AI understands the data schema and generates appropriate visualizations.</p>
+                        <pre><code>const ChartGenerator = ({ data }) => {
+  const [config, setConfig] = useState(null);
+
+  const generateChart = async (prompt) => {
+    const response = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{
+        role: "system",
+        content: "Generate ECharts config from user request"
+      }, {
+        role: "user",
+        content: prompt + "\\nData: " + JSON.stringify(data)
+      }]
+    });
+    setConfig(JSON.parse(response.choices[0].message.content));
+  };
+
+  return &lt;ReactECharts option={config} /&gt;;
+};</code></pre>
+                    </section>
+                    <section id="results">
+                        <h3>Results</h3>
+                        <p>Users can now create complex visualizations just by describing what they want to see. "Show me monthly revenue as a line chart" instantly generates the appropriate configuration.</p>
+                    </section>
+                `
+            },
+            'docker-deployments': {
+                title: "Automating Docker Deployments with Node.js",
+                date: "October 10, 2025",
+                tags: "#DevOps #Docker #Node",
+                content: `
+                    <section id="intro">
+                        <p>Managing container deployments manually is error-prone and time-consuming. This post explores building a custom CLI tool for orchestrating Docker deployments.</p>
+                    </section>
+                    <section id="why">
+                        <h3>Why Build Custom Tooling?</h3>
+                        <p>While Kubernetes and Docker Swarm are excellent for large-scale operations, smaller teams often need simpler solutions that fit their specific workflow.</p>
+                    </section>
+                    <section id="architecture">
+                        <h3>Architecture</h3>
+                        <p>Our CLI tool uses Node.js to interact with the Docker API, providing commands for:</p>
+                        <ul>
+                            <li>Blue-green deployments</li>
+                            <li>Automated rollbacks</li>
+                            <li>Health checks and monitoring</li>
+                            <li>Configuration management</li>
+                        </ul>
+                        <pre><code>// deploy.js
+const Docker = require('dockerode');
+const docker = new Docker();
+
+async function deploy(serviceName, image) {
+  const container = await docker.createContainer({
+    Image: image,
+    name: serviceName + '-new',
+    HostConfig: {
+      RestartPolicy: { Name: 'always' }
+    }
+  });
+
+  await container.start();
+
+  // Health check
+  const healthy = await checkHealth(container);
+  if (healthy) {
+    await swapTraffic(serviceName);
+  } else {
+    await container.stop();
+    await container.remove();
+    throw new Error('Deployment failed health check');
+  }
+}</code></pre>
+                    </section>
+                    <section id="conclusion">
+                        <h3>Conclusion</h3>
+                        <p>This approach gives us fine-grained control while keeping complexity manageable.</p>
+                    </section>
+                `
+            },
+            'llm-memory': {
+                title: "Managing Context Windows in LLMs",
+                date: "September 15, 2025",
+                tags: "#AI #LLM #Engineering",
+                content: `
+                    <section id="intro">
+                        <p>Long-running conversations with LLMs face a fundamental challenge: limited context windows. This post explores strategies for maintaining coherent, context-aware conversations.</p>
+                    </section>
+                    <section id="problem">
+                        <h3>The Problem</h3>
+                        <p>Even with expanded context windows (128k+ tokens), conversations can exceed limits. More importantly, including everything reduces response quality and increases costs.</p>
+                    </section>
+                    <section id="strategies">
+                        <h3>Strategies</h3>
+                        <h4>1. Semantic Summarization</h4>
+                        <p>After every N exchanges, use the LLM itself to create a semantic summary of the conversation, preserving key facts while reducing token count.</p>
+                        <h4>2. Vector-Based Retrieval</h4>
+                        <p>Store message embeddings in a vector database. For each new query, retrieve the most relevant past exchanges rather than including the entire history.</p>
+                        <h4>3. Hierarchical Memory</h4>
+                        <p>Maintain multiple memory layers: immediate context (last few messages), session summary, and long-term facts. Each serves different purposes.</p>
+                        <pre><code>class ConversationMemory {
+  constructor() {
+    this.immediate = []; // Last 10 messages
+    this.summary = "";   // Session summary
+    this.facts = [];     // Extracted key facts
+  }
+
+  async addMessage(msg) {
+    this.immediate.push(msg);
+    if (this.immediate.length > 10) {
+      await this.consolidate();
+    }
+  }
+
+  async consolidate() {
+    const summary = await this.summarize(this.immediate);
+    this.summary = this.mergeSummaries(this.summary, summary);
+    this.facts.push(...await this.extractFacts(this.immediate));
+    this.immediate = this.immediate.slice(-3);
+  }
+}</code></pre>
+                    </section>
+                    <section id="impact">
+                        <h3>Real-World Impact</h3>
+                        <p>These techniques reduced our average context size by 70% while maintaining conversation quality, resulting in faster responses and lower costs.</p>
+                    </section>
+                `
+            },
+            'gpt-pokemon': {
+                title: "GPT Plays Pokémon",
+                date: "2024",
+                tags: "#Python #OpenAI #GameAI",
+                content: `
+                    <section id="intro">
+                        <p>An autonomous AI agent that plays Pokémon by reading game memory and making decisions in real-time.</p>
+                    </section>
+                    <section id="how">
+                        <h3>How It Works</h3>
+                        <p>The agent uses memory reading to understand the current game state, including player position, Pokémon stats, and battle conditions. GPT-4 analyzes this data and decides which actions to take.</p>
+                    </section>
+                    <section id="challenges">
+                        <h3>Technical Challenges</h3>
+                        <ul>
+                            <li>Real-time memory reading from the emulator</li>
+                            <li>Converting raw memory values into meaningful game state</li>
+                            <li>Managing API rate limits while maintaining responsive gameplay</li>
+                            <li>Teaching the AI battle strategy and type advantages</li>
+                        </ul>
+                        <p>The result is an AI that can navigate the game world, engage in battles, and make strategic decisions autonomously.</p>
+                    </section>
+                `
+            },
+            'computer-use': {
+                title: "Open Computer Use",
+                date: "2024",
+                tags: "#Docker #AI #Automation",
+                content: `
+                    <section id="intro">
+                        <p>AI-powered Windows automation running in Docker containers, enabling autonomous desktop interactions.</p>
+                    </section>
+                    <section id="architecture">
+                        <h3>Architecture</h3>
+                        <p>This project combines Claude's computer use capabilities with Docker to create isolated, controllable Windows environments that AI can interact with safely.</p>
+                    </section>
+                    <section id="usecases">
+                        <h3>Use Cases</h3>
+                        <ul>
+                            <li>Automated testing of desktop applications</li>
+                            <li>Data entry and form filling</li>
+                            <li>Screen scraping from legacy applications</li>
+                            <li>Workflow automation</li>
+                        </ul>
+                        <p>By containerizing the environment, we ensure that AI actions are isolated and can be easily reset or monitored.</p>
+                    </section>
+                `
+            },
+            'streamer-gpt': {
+                title: "Streamer GPT",
+                date: "2024",
+                tags: "#Node #AI #Twitch",
+                content: `
+                    <section id="intro">
+                        <p>An interactive AI assistant for Twitch that responds to chat commands with voice and text, creating engaging stream experiences.</p>
+                    </section>
+                    <section id="features">
+                        <h3>Features</h3>
+                        <ul>
+                            <li>Real-time voice synthesis for natural-sounding responses</li>
+                            <li>Context-aware conversations that remember previous interactions</li>
+                            <li>Integration with Twitch API for channel points and rewards</li>
+                            <li>Customizable personality and response style</li>
+                        </ul>
+                    </section>
+                    <section id="stack">
+                        <h3>Technical Stack</h3>
+                        <p>Built with Node.js, OpenAI GPT-4, ElevenLabs for voice synthesis, and the Twitch TMI.js library for chat integration.</p>
+                        <p>The system processes chat messages in real-time, generates contextual responses, and converts them to speech for an immersive viewer experience.</p>
+                    </section>
+                `
+            },
+            'linux-kernel': {
+                title: "Building a Custom Linux Kernel Module",
+                date: "December 2, 2024",
+                tags: "#Linux #C #Kernel",
+                content: `
+                    <section id="intro">
+                        <p>Kernel development offers direct hardware access and system-level control. This post walks through creating a custom kernel module from scratch.</p>
+                    </section>
+                    <section id="prerequisites">
+                        <h3>Prerequisites</h3>
+                        <p>You'll need the Linux kernel headers, build-essential package, and a basic understanding of C programming.</p>
+                    </section>
+                    <section id="hello">
+                        <h3>Hello World Module</h3>
+                        <pre><code>#include &lt;linux/module.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/init.h&gt;
+
+static int __init hello_init(void) {
+    printk(KERN_INFO "Hello, Kernel!\\n");
+    return 0;
+}
+
+static void __exit hello_exit(void) {
+    printk(KERN_INFO "Goodbye, Kernel!\\n");
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("hypercube");
+MODULE_DESCRIPTION("A simple kernel module");</code></pre>
+                    </section>
+                    <section id="compilation">
+                        <h3>Compilation and Loading</h3>
+                        <p>Use make with a proper Makefile, then insmod to load and rmmod to unload. Check dmesg for kernel log messages.</p>
+                    </section>
+                `
+            },
+            'vim-neovim': {
+                title: "Why I Switched from Vim to Neovim",
+                date: "August 21, 2024",
+                tags: "#Vim #Neovim #Tools",
+                content: `
+                    <section id="intro">
+                        <p>After years of using Vim, I made the switch to Neovim. Here's why it was worth it.</p>
+                    </section>
+                    <section id="improvements">
+                        <h3>Key Improvements</h3>
+                        <h4>1. Built-in LSP Support</h4>
+                        <p>Neovim's native LSP client provides IntelliSense-like features without heavy plugins. Autocompletion, go-to-definition, and refactoring work out of the box.</p>
+                        <h4>2. Lua Configuration</h4>
+                        <p>Lua is faster and more intuitive than VimScript. Configuration is cleaner and plugin development is more straightforward.</p>
+                        <h4>3. TreeSitter Integration</h4>
+                        <p>Superior syntax highlighting and code understanding through abstract syntax trees. Enables advanced features like smart text objects and refactoring.</p>
+                        <h4>4. Better Async Support</h4>
+                        <p>Modern async architecture means plugins don't block the editor. Background tasks run smoothly without freezing the UI.</p>
+                    </section>
+                    <section id="migration">
+                        <h3>Migration Tips</h3>
+                        <p>Your existing .vimrc works in Neovim, so you can migrate gradually. Start with init.lua and convert configs piece by piece.</p>
+                        <p>The ecosystem is vibrant with plugins like telescope.nvim, nvim-cmp, and lualine providing modern editor features.</p>
+                    </section>
+                `
+            }
+        };
+
+        // Generate Hierarchical Table of Contents
+        function generateTOC(postContent, tocElement) {
+            const sections = postContent.querySelectorAll('section[id]');
+            if (sections.length === 0) {
+                tocElement.innerHTML = '<li><a href="#" class="toc-item" style="color: #666;">No sections</a></li>';
+                return;
+            }
+
+            // Build hierarchical structure
+            const tocStructure = [];
+            let currentH2 = null;
+
+            sections.forEach(section => {
+                // Each section contains exactly ONE heading - find which type it is
+                const heading = section.querySelector('h2, h3, h4');
+                if (!heading) return;
+
+                const headingLevel = heading.tagName; // 'H2', 'H3', or 'H4'
+                const title = (heading.dataset.title || heading.textContent).trim();
+
+                if (headingLevel === 'H2') {
+                    // Main category
+                    currentH2 = {
+                        id: section.id,
+                        title: title,
+                        subcategories: []
+                    };
+                    tocStructure.push(currentH2);
+                } else if (headingLevel === 'H3') {
+                    if (currentH2) {
+                        // Subcategory under current h2
+                        currentH2.subcategories.push({
+                            id: section.id,
+                            title: title
+                        });
+                    } else {
+                        // h3 without parent h2, treat as main category
+                        tocStructure.push({
+                            id: section.id,
+                            title: title,
+                            subcategories: []
+                        });
+                    }
+                }
+                // h4 headings are ignored in TOC (optional: you can add them as sub-subcategories)
+            });
+
+            // Build HTML
+            let tocHTML = '';
+            tocStructure.forEach(item => {
+                tocHTML += `<li><a href="#${item.id}" class="toc-item">${item.title}</a>`;
+                if (item.subcategories.length > 0) {
+                    tocHTML += '<ul>';
+                    item.subcategories.forEach(sub => {
+                        tocHTML += `<li><a href="#${sub.id}" class="toc-subitem">${sub.title}</a></li>`;
+                    });
+                    tocHTML += '</ul>';
+                }
+                tocHTML += '</li>';
+            });
+
+            tocElement.innerHTML = tocHTML;
+
+            // Add scroll spy for TOC (more stable than the old IntersectionObserver approach)
+            const tocLinks = tocElement.querySelectorAll('.toc-item, .toc-subitem');
+            const sectionList = Array.from(sections);
+            const nav = document.querySelector('nav');
+            const scrollOffset = (nav?.offsetHeight || 0) + 24; // account for sticky nav height
+            let activeSection = null;
+            let ticking = false;
+            let isManualScroll = false;
+            let manualScrollTimeout = null;
+
+            function highlightTocItem(sectionId) {
+                tocLinks.forEach(link => link.classList.remove('active'));
+                const activeLink = tocElement.querySelector(`a[href="#${sectionId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+
+            function findActiveSection() {
+                const viewportTop = window.scrollY;
+                let bestId = sectionList[0]?.id || null;
+                let bestDistance = Number.POSITIVE_INFINITY;
+
+                sectionList.forEach(section => {
+                    const adjustedTop = section.getBoundingClientRect().top + window.scrollY - scrollOffset;
+                    const distance = Math.abs(adjustedTop - viewportTop);
+                    if (distance < bestDistance) {
+                        bestDistance = distance;
+                        bestId = section.id;
+                    }
+                });
+
+                return bestId;
+            }
+
+            function onScroll() {
+                if (isManualScroll || ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => {
+                    const currentId = findActiveSection();
+                    if (currentId && currentId !== activeSection) {
+                        activeSection = currentId;
+                        highlightTocItem(activeSection);
+                    }
+                    ticking = false;
+                });
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+
+            function startManualScroll(duration = 500) {
+                isManualScroll = true;
+                if (manualScrollTimeout) clearTimeout(manualScrollTimeout);
+                manualScrollTimeout = setTimeout(() => {
+                    isManualScroll = false;
+                    onScroll();
+                }, duration);
+            }
+
+            function scrollToSection(targetId, updateHash = true) {
+                const targetEl = document.getElementById(targetId);
+                if (!targetEl) return;
+
+                const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - scrollOffset;
+                activeSection = targetId;
+                highlightTocItem(targetId);
+                if (updateHash) history.replaceState(null, '', `#${targetId}`);
+
+                const distance = Math.abs(window.scrollY - targetTop);
+                const duration = Math.min(900, Math.max(350, distance * 0.6));
+                startManualScroll(duration);
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+            }
+
+            // Highlight immediately when clicking TOC links and smooth-scroll manually to top-aligned heading
+            tocLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+
+            // Highlight correct item on initial load if there's a hash, otherwise sync to first visible
+            if (window.location.hash) {
+                const initialId = window.location.hash.substring(1);
+                setTimeout(() => scrollToSection(initialId, false), 100);
+            } else {
+                onScroll();
+            }
+        }
+
+        // Render post
+        function renderPost(post, postContent, tocElement) {
+            document.title = post.title + " // hypercube.dev";
+            postContent.innerHTML = `
+                <header class="post-header">
+                    <h1>${post.title}</h1>
+                    <div class="post-meta">
+                        <span>${post.date}</span>
+                        <span>•</span>
+                        <span>${post.tags}</span>
+                    </div>
+                </header>
+                ${post.content}
+            `;
+
+            setupImageLightbox(postContent);
+            setTimeout(() => generateTOC(postContent, tocElement), 100);
+        }
+
+        // Lightbox for images so project screenshots can be viewed full size
+        function setupImageLightbox(postContent) {
+            const images = postContent.querySelectorAll('img');
+            if (!images.length) return;
+
+            let backdrop = document.querySelector('.image-lightbox-backdrop');
+            let lightboxImg;
+
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.className = 'image-lightbox-backdrop';
+
+                const content = document.createElement('div');
+                content.className = 'image-lightbox-content';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'image-lightbox-close';
+                closeBtn.setAttribute('aria-label', 'Close image');
+                closeBtn.textContent = 'Close';
+
+                lightboxImg = document.createElement('img');
+                lightboxImg.alt = 'Expanded view';
+
+                content.appendChild(lightboxImg);
+                content.appendChild(closeBtn);
+                backdrop.appendChild(content);
+                document.body.appendChild(backdrop);
+
+                const close = () => {
+                    backdrop.style.opacity = '0';
+                    setTimeout(() => {
+                        backdrop.style.display = 'none';
+                        backdrop.classList.remove('scrollable');
+                        backdrop.scrollTop = 0;
+                        backdrop.scrollLeft = 0;
+                        lightboxImg.classList.remove('zoomed');
+                        lightboxImg.classList.add('fit-view');
+                        document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
+                        backdrop.style.opacity = '';
+                    }, 80);
+                };
+
+                backdrop.addEventListener('click', (e) => {
+                    if (e.target === backdrop || e.target.classList.contains('image-lightbox-close')) {
+                        close();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && backdrop.style.display === 'flex') {
+                        close();
+                    }
+                });
+
+                // Toggle between fit-to-view and full-size zoom
+                lightboxImg.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isZoomed = lightboxImg.classList.contains('zoomed');
+                    if (isZoomed) {
+                        lightboxImg.classList.remove('zoomed');
+                        lightboxImg.classList.add('fit-view');
+                        backdrop.classList.remove('scrollable');
+                        backdrop.scrollTop = 0;
+                        backdrop.scrollLeft = 0;
+                    } else {
+                        lightboxImg.classList.remove('fit-view');
+                        lightboxImg.classList.add('zoomed');
+                        backdrop.classList.add('scrollable');
+                    }
+                });
+
+                backdrop.dataset.initialized = 'true';
+            } else {
+                lightboxImg = backdrop.querySelector('img');
+            }
+
+            const open = (src, altText) => {
+                lightboxImg.src = src;
+                lightboxImg.alt = altText || 'Expanded view';
+                lightboxImg.classList.remove('zoomed');
+                lightboxImg.classList.add('fit-view');
+                backdrop.classList.remove('scrollable');
+                backdrop.scrollTop = 0;
+                backdrop.scrollLeft = 0;
+                backdrop.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            };
+
+            images.forEach(img => {
+                if (img.dataset.lightboxBound === 'true') return;
+                img.dataset.lightboxBound = 'true';
+                img.addEventListener('click', () => open(img.src, img.alt));
+            });
+        }
+
+        // Initialize page
+        async function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id') || 'about';
+            const postContent = document.getElementById('post-content');
+            const tocElement = document.getElementById('table-of-contents');
+
+            // Try to load from markdown first
+            let post = await loadPost(postId);
+
+            // Fallback to legacy posts object only if markdown is missing
+            if (!post && posts[postId]) {
+                post = posts[postId];
+            }
+
+            if (post) {
+                renderPost(post, postContent, tocElement);
+            } else {
+                postContent.innerHTML = `
+                    <div style="text-align: center; padding: 4rem 0;">
+                        <h2>Post Not Found</h2>
+                        <p style="color: #666;">The requested article doesn't exist.</p>
+                        <a href="blog.html" style="color: var(--terminal-green);">View all articles →</a>
+                    </div>
+                `;
+                tocElement.innerHTML = '<li><a href="#" class="toc-item" style="color: #666;">N/A</a></li>';
+            }
+        }
+
+        // Run on page load
+        init();
+    </script>
+</body>
+</html>

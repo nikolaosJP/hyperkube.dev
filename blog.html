@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Archive // hypercube</title>
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <style>
+        :root {
+            --bg-black: #050505;
+            --grid-size: 20px;
+            --grid-color: rgba(34, 197, 94, 0.11); /* Consistent Grid */
+            --terminal-green: #22c55e;
+            --text-main: #e5e5e5;
+            --text-muted: #888;
+            --border-color: #333;
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Inter', sans-serif;
+            --max-width: 1400px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-y: scroll; scrollbar-gutter: stable; overscroll-behavior-y: contain; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.8;
+            background-size: var(--grid-size) var(--grid-size);
+            background-image: radial-gradient(var(--grid-color) 1px, transparent 1px);
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        a:hover { color: var(--terminal-green); }
+        .green { color: var(--terminal-green); }
+
+        /* ============================================
+           NAVIGATION - MUST BE IDENTICAL ON ALL PAGES
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 0;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            line-height: 1;
+        }
+        nav .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .nav-links a {
+            transition: color 0.2s;
+            color: var(--text-muted);
+        }
+        .nav-links a:hover {
+            color: var(--terminal-green);
+        }
+        .nav-links span {
+            cursor: pointer;
+            transition: color 0.2s;
+            color: var(--text-muted);
+        }
+        .nav-links span:hover {
+            color: var(--terminal-green);
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+        /* ============================================ */
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+        /* Archive layout with sidebar - matches post.html */
+        .archive-wrapper {
+            max-width: var(--max-width);
+            margin: 120px auto 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Left sidebar */
+        .left-sidebar { position: sticky; top: 120px; font-family: var(--font-mono); font-size: 0.9rem; }
+        .about-widget { margin-bottom: 1.5rem; }
+        .about-title { font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; display: block; }
+        .about-text { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; font-family: var(--font-sans); }
+        .nav-separator { border: none; height: 1px; background: #222; margin: 1.5rem 0; }
+        .nav-list { list-style: none; padding: 0; margin: 0; }
+        .nav-list li { margin-bottom: 0.8rem; }
+        .nav-list a { color: var(--text-muted); display: block; transition: transform 0.2s, color 0.2s; font-size: 0.9rem; }
+        .nav-list a:hover { color: var(--text-main); transform: translateX(3px); }
+
+        .archive-content { min-width: 0; }
+        
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem; letter-spacing: -1px; }
+        h3 { 
+            font-family: var(--font-mono); font-size: 1.5rem; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 0.5rem; margin-top: 3rem; margin-bottom: 1.5rem; 
+        }
+
+        .post-list { list-style: none; padding: 0; }
+        .post-item {
+            display: flex; align-items: baseline; gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .post-item:hover .post-title { color: var(--terminal-green); }
+        
+        .post-date {
+            font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);
+            min-width: 100px;
+        }
+        .post-title { font-size: 1.1rem; font-weight: 500; }
+
+        @media(max-width: 600px) {
+            .post-item { flex-direction: column; gap: 5px; }
+        }
+
+        @media (max-width: 1000px) {
+            .archive-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+            .left-sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">hypercube<span class="green">.dev</span></a>
+            <div class="nav-links">
+                <a href="index.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Terminal</a>
+                <a href="post.html?id=about" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> About</a>
+                <a href="projects-blog.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Projects</a>
+                <a href="blog.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Blog</a>
+                <a href="index.html#skills" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Skills</a>
+                <a href="index.html#contact" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="archive-wrapper">
+        <aside class="left-sidebar">
+            <div class="about-widget">
+                <span class="about-title">About Me</span>
+                <p class="about-text">Applied AI scientist optimizing intelligent systems. This is my vertical farm; mind the experimental flora.</p>
+            </div>
+
+            <hr class="nav-separator">
+
+            <ul class="nav-list">
+                <li><a href="index.html">Terminal</a></li>
+                <li><a href="post.html?id=about">About</a></li>
+                <li><a href="projects-blog.html">Projects</a></li>
+                <li><a href="blog.html">Articles</a></li>
+            </ul>
+
+            <hr class="nav-separator">
+
+            <ul class="nav-list">
+                <li><a href="https://github.com/nikolaosJP" target="_blank">GitHub ↗</a></li>
+                <li><a href="https://www.linkedin.com/in/nickiliopoulos" target="_blank">LinkedIn ↗</a></li>
+            </ul>
+        </aside>
+
+        <div class="archive-content">
+            <h1>Articles</h1>
+        
+        <h3>2025</h3>
+        <ul class="post-list">
+            <li>
+                <a href="post.html?id=echarts-react" class="post-item">
+                    <span class="post-date">Nov 24</span>
+                    <span class="post-title">Integrating Apache ECharts with React & GPT-4</span>
+                </a>
+            </li>
+            <li>
+                <a href="post.html?id=docker-deployments" class="post-item">
+                    <span class="post-date">Oct 10</span>
+                    <span class="post-title">Automating Docker Deployments with Node.js</span>
+                </a>
+            </li>
+            <li>
+                <a href="post.html?id=llm-memory" class="post-item">
+                    <span class="post-date">Sep 15</span>
+                    <span class="post-title">Managing Context Windows in LLMs</span>
+                </a>
+            </li>
+        </ul>
+
+        <h3>2024</h3>
+        <ul class="post-list">
+            <li>
+                <a href="post.html?id=linux-kernel" class="post-item">
+                    <span class="post-date">Dec 02</span>
+                    <span class="post-title">Building a Custom Linux Kernel Module</span>
+                </a>
+            </li>
+            <li>
+                <a href="post.html?id=vim-neovim" class="post-item">
+                    <span class="post-date">Aug 21</span>
+                    <span class="post-title">Why I Switched from Vim to Neovim</span>
+                </a>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <script>
+        // Navigation hover effects - Optimized with caching
+        const chars = ['>', '#', '*', '_', '!', '?', '$', '/', ':', '+'];
+        const charsLen = chars.length;
+        const prefixCache = new WeakMap();
+
+        function getPrefix(el) {
+            if (!prefixCache.has(el)) {
+                prefixCache.set(el, el.querySelector('.nav-prefix'));
+            }
+            return prefixCache.get(el);
+        }
+
+        function handleNavEnter(el) {
+            const span = getPrefix(el);
+            if (span) span.textContent = chars[~~(Math.random() * charsLen)] + chars[~~(Math.random() * charsLen)];
+        }
+        function handleNavLeave(el) {
+            const span = getPrefix(el);
+            if (span) span.textContent = "//";
+        }
+        window.handleNavEnter = handleNavEnter;
+        window.handleNavLeave = handleNavLeave;
+
+        // Ensure list titles match markdown frontmatter
+        function parseFrontmatter(markdown) {
+            const fm = /^---\s*\n([\s\S]*?)\n---/;
+            const match = markdown.match(fm);
+            if (!match) return {};
+            return match[1].split('\n').reduce((acc, line) => {
+                const [k, ...rest] = line.split(':');
+                if (k && rest.length) acc[k.trim()] = rest.join(':').trim();
+                return acc;
+            }, {});
+        }
+
+        function extractIdFromHref(href) {
+            if (!href) return null;
+            const match = href.match(/[?&]id=([^&]+)/);
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+
+        async function refreshTitlesFromMarkdown() {
+            const items = Array.from(document.querySelectorAll('.post-item'));
+            await Promise.all(items.map(async (item) => {
+                const href = item.getAttribute('href');
+                const postId = extractIdFromHref(href);
+                if (!postId) return;
+
+                try {
+                    const res = await fetch(`content/blog/${postId}.md`, { cache: 'no-cache' });
+                    if (!res.ok) return;
+                    const text = await res.text();
+                    const meta = parseFrontmatter(text);
+                    if (meta.title) {
+                        const titleEl = item.querySelector('.post-title');
+                        if (titleEl) titleEl.textContent = meta.title;
+                    }
+                } catch (err) {
+                    // Silent fail - title will use hardcoded fallback
+                }
+            }));
+        }
+
+        function runWhenReady() {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', refreshTitlesFromMarkdown);
+            } else {
+                refreshTitlesFromMarkdown();
+            }
+        }
+
+        runWhenReady();
+    </script>
+
+</body>
+</html>
