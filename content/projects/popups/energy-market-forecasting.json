@@ -1,8 +1,8 @@
 {
   "title": "Energy Market Forecasting",
   "cardTitle": "Energy Market Forecasting",
-  "cardDescription": "Day-ahead energy oracle for bid optimization.",
-  "modalDescription": "Day-ahead energy price pipeline: STL cleaning, feature engineering, and an Optuna-tuned XGBoost that delivered €1.38M in simulated bids instead of vibes.",
+  "cardDescription": "Predicts energy prices so bids aren't pure vibes.",
+  "modalDescription": "Forecasts day-ahead prices with STL imputation, cyclical encoding, renewable share, demand spreads, and 24h, 48h, 168h lags, then feeds an Optuna-tuned XGBoost optimized on trading PnL. Adds conviction-based sizing, walk-forward backtests with slippage, and a simulated €1.38M PnL so renewables doing something weird becomes a trade ticket.",
   "tags": ["#Python", "#QuantEnergy", "#TimeSeries"],
   "link": "post.html?id=energy-market-forecasting"
 }

@@ -135,7 +135,9 @@ Standard Commands:
   theme [style] - Change terminal theme (matrix, midnight, retro, hacker)
   games         - List available console games
   yatmal [text] - Rooftop rant of legend
-  projects      - List the projects made by hypercube
+  projects      - List the actual projects built by hypercube
+  publications  - List recent publications
+  education     - Show education background
   neofetch      - Display system information (alias: netofetch)
   clear         - Clear the console
   zork          - Play Zork1: The Great Underground Empire
@@ -174,9 +176,39 @@ Try: help to list available commands, or simply say something to communicate wit
         },
         projects: () => (
 `Projects:
-  - GPT Plays Pokémon
-  - Open Computer Use
-  - Streamer GPT`
+  - Explainable AI (2025-12-15)
+  - Portfolio Tracker (2025-10-02)
+  - Energy Market Forecasting (2025-08-08)
+  - Goal Tracker (2025-06-04)
+  - Cost of Living Scraper (2025-04-12)
+  - AI Resume Tailor (2024-08-22)
+  - Rent vs Buy Simulator (2024-02-14)
+  - Movie Recommendation System (2023-06-12)
+  - Textbook Solutions (2022-09-05)
+  - Anomaly Detection (2022-07-18)
+  - Neural Style Transfer (pretrained VGG19) (2022-05-15)
+  - MNIST: The "Hello World" of deep learning (2022-03-10)`
+        ),
+        publications: () => (
+`Publications:
+  - Flood risk perceptions in Florida cities (2024-10-24)
+  - Residential demand response in Ottawa (2023-07-24)
+  - Residential DR determinants in Ontario (2021-10-16)
+  - Residential demand response in Japan (2021-05-13)
+  - Shinchi Town sustainability survey (2020-10-26)
+  - Residential DSM/DER willingness in Japan (2019-12-02)
+  - Sustainable space exploration (2019-09-27)
+  - Chile's coastal flood checkup (2019-06-13)
+  - Tokyo low emission building strategy (2018-07-14)
+  - Flood Vulnerability and Gender Roles (2017-10-22)`
+        ),
+        education: () => (
+`Education:
+  - PhD, Sustainability Science — The University of Tokyo (2018–2021), Tokyo, Japan
+    • Optimized smart grid energy efficiency with Markov decision processes
+    • Japanese government Monbukagakusho: MEXT scholarship (≈$120k)
+  - MSc, Sustainability Science — The University of Tokyo (2016–2018), Tokyo, Japan
+  - BSc, Economics — University of Thessaly (2010–2015), Thessaly, Greece`
         ),
         yatmal: (_, raw) => {
             const text = raw.replace(/^yatmal\s*/i, "") || "You're tearing me apart, Lisa!";

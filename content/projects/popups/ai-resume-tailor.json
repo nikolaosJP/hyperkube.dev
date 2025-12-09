@@ -1,8 +1,8 @@
 {
   "title": "AI Resume Tailor",
   "cardTitle": "AI Resume Tailor",
-  "cardDescription": "Gemini-powered resume tailoring without tall tales.",
-  "modalDescription": "Gemini-powered resume ghostwriter that rewrites your own bullets for each JD, no invented Kubernetes trophies, just tailored PDFs.",
+  "cardDescription": "Rewrites your resume for each job without lying.",
+  "modalDescription": "Reads the job description, analyzes your master resume, and uses an LLM to rewrite bullets for that role without gifting you imaginary Nobel awards. Emphasizes the right keywords, compiles a LaTeX PDF, and saves you from 47 versions of the same doc.",
   "tags": ["#AI", "#GeminiAPI", "#LaTeX", "#Automation"],
   "link": "post.html?id=ai-resume-tailor"
 }

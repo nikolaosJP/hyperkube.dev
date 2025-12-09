@@ -360,6 +360,14 @@
             padding: 2rem;
         }
 
+        .modal-summary {
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+        }
+
         .modal-description {
             color: var(--text-muted);
             line-height: 1.7;
@@ -495,33 +503,33 @@
                     <!-- Projects pre-rendered for instant display -->
                     <div class="card-box" data-popup="explainable-ai" onclick="openProjectPopup('explainable-ai', this)">
                         <h3>Explainable AI Platform</h3>
-                        <p>An ML confession booth that actually explains itself.</p>
-                        <div class="tech-stack-tags"><span class="tag">#XAI</span><span class="tag">#Python</span><span class="tag">#Visualization</span></div>
+                        <p>ML models that actually explain their reasoning out loud.</p>
+                        <div class="tech-stack-tags"><span class="tag">#XAI</span><span class="tag">#Python</span></div>
                     </div>
                     <div class="card-box" data-popup="portfolio-tracker" onclick="openProjectPopup('portfolio-tracker', this)">
                         <h3>Portfolio Tracker</h3>
-                        <p>IBKR receipts translated into a clean rebalancing checklist.</p>
-                        <div class="tech-stack-tags"><span class="tag">#Python</span><span class="tag">#QuantFinance</span><span class="tag">#PortfolioAnalytics</span></div>
+                        <p>Translates IBKR chaos into clean rebalancing math.</p>
+                        <div class="tech-stack-tags"><span class="tag">#Python</span><span class="tag">#QuantFinance</span></div>
                     </div>
                     <div class="card-box" data-popup="energy-market-forecasting" onclick="openProjectPopup('energy-market-forecasting', this)">
                         <h3>Energy Market Forecasting</h3>
-                        <p>Optuna-tuned price oracle so bids stop being vibes-based.</p>
-                        <div class="tech-stack-tags"><span class="tag">#Python</span><span class="tag">#QuantEnergy</span><span class="tag">#TimeSeries</span></div>
+                        <p>Predicts energy prices so bids aren't pure vibes.</p>
+                        <div class="tech-stack-tags"><span class="tag">#Python</span><span class="tag">#QuantEnergy</span></div>
                     </div>
                     <div class="card-box" data-popup="goal-tracker" onclick="openProjectPopup('goal-tracker', this)">
                         <h3>Goal Tracker</h3>
-                        <p>Turns daily tasks into a GPS for your big yearly goals.</p>
-                        <div class="tech-stack-tags"><span class="tag">#React</span><span class="tag">#Python</span><span class="tag">#Productivity</span></div>
+                        <p>Connects today's boring tasks to your big yearly goals.</p>
+                        <div class="tech-stack-tags"><span class="tag">#React</span><span class="tag">#Python</span></div>
                     </div>
                     <div class="card-box" data-popup="cost-of-living-scraper" onclick="openProjectPopup('cost-of-living-scraper', this)">
                         <h3>Cost of Living Scraper</h3>
-                        <p>Numbeo-reading bot that turns relocations into planned expenses.</p>
-                        <div class="tech-stack-tags"><span class="tag">#WebScraping</span><span class="tag">#Python</span><span class="tag">#Data</span></div>
+                        <p>Turns relocation fantasies into actual expense spreadsheets.</p>
+                        <div class="tech-stack-tags"><span class="tag">#WebScraping</span><span class="tag">#Python</span></div>
                     </div>
                     <div class="card-box" data-popup="ai-resume-tailor" onclick="openProjectPopup('ai-resume-tailor', this)">
                         <h3>AI Resume Tailor</h3>
-                        <p>Gemini ghostwriter that tailors your resume without lying.</p>
-                        <div class="tech-stack-tags"><span class="tag">#AI</span><span class="tag">#GeminiAPI</span><span class="tag">#LaTeX</span></div>
+                        <p>Rewrites your resume for each job without lying.</p>
+                        <div class="tech-stack-tags"><span class="tag">#AI</span><span class="tag">#GeminiAPI</span></div>
                     </div>
                 </div>
                 <div style="text-align: right;">
@@ -531,20 +539,20 @@
 
             <div id="tab-articles" class="tab-content">
                 <div class="grid-3" id="articles-grid">
-                    <a class="card-box" href="post.html?id=tale-two-florida-cities">
+                    <a class="card-box" href="post.html?id=tale-two-florida-cities" data-popup="tale-two-florida-cities" onclick="openPublicationPopup('tale-two-florida-cities', event, this)">
                         <h3>Flood risk perceptions in Florida cities</h3>
-                        <p>Oct 24, 2024</p>
-                        <div class="tech-stack-tags"><span class="tag">2024</span><span class="tag">flooding</span></div>
+                        <p>Florida cities pick lifeboats: sandbags or denial.</p>
+                        <div class="tech-stack-tags"><span class="tag">#flooding</span><span class="tag">#adaptation</span></div>
                     </a>
-                    <a class="card-box" href="post.html?id=demand-response-ottawa">
+                    <a class="card-box" href="post.html?id=demand-response-ottawa" data-popup="demand-response-ottawa" onclick="openPublicationPopup('demand-response-ottawa', event, this)">
                         <h3>Residential demand response in Ottawa</h3>
-                        <p>Jul 24, 2023</p>
-                        <div class="tech-stack-tags"><span class="tag">2023</span><span class="tag">demand-response</span></div>
+                        <p>Paychecks made Ottawa ACs nap on cue.</p>
+                        <div class="tech-stack-tags"><span class="tag">#demand-response</span><span class="tag">#energy</span></div>
                     </a>
-                    <a class="card-box" href="post.html?id=residential-demand-response-ontario">
+                    <a class="card-box" href="post.html?id=residential-demand-response-ontario" data-popup="residential-demand-response-ontario" onclick="openPublicationPopup('residential-demand-response-ontario', event, this)">
                         <h3>Residential DR determinants in Ontario</h3>
-                        <p>Oct 16, 2021</p>
-                        <div class="tech-stack-tags"><span class="tag">2021</span><span class="tag">smart-grid</span></div>
+                        <p>Ontario experts draft grid plays like fantasy football.</p>
+                        <div class="tech-stack-tags"><span class="tag">#smart-grid</span><span class="tag">#demand-response</span></div>
                     </a>
                 </div>
                 <div style="text-align: right;">
@@ -666,6 +674,7 @@
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body">
+                <p class="modal-summary" id="modal-summary"></p>
                 <p class="modal-description" id="modal-description"></p>
                 <div class="modal-tags" id="modal-tags"></div>
             </div>
@@ -870,27 +879,40 @@
         const modalElements = {
             overlay: null,
             title: null,
+            summary: null,
             description: null,
             tags: null,
             btn: null
         };
 
-        function openModal(title, description, tags, link) {
+        function openModal(title, content, tags, link) {
             // Lazy init cache
             if (!modalElements.overlay) {
                 modalElements.overlay = document.getElementById('modal-overlay');
                 modalElements.title = document.getElementById('modal-title');
+                modalElements.summary = document.getElementById('modal-summary');
                 modalElements.description = document.getElementById('modal-description');
                 modalElements.tags = document.getElementById('modal-tags');
                 modalElements.btn = document.getElementById('modal-btn');
             }
 
             modalElements.title.textContent = title;
-            modalElements.description.textContent = description;
+            const summaryText = content?.summary || content?.card || content?.text || '';
+            const bodyText = content?.body || content?.text || (typeof content === 'string' ? content : '') || '';
+            const summaryToShow = summaryText || bodyText;
+            const descriptionToShow = bodyText && bodyText !== summaryToShow ? bodyText : '';
+            if (modalElements.summary) {
+                modalElements.summary.textContent = summaryToShow;
+                modalElements.summary.style.display = summaryToShow ? 'block' : 'none';
+            }
+            if (modalElements.description) {
+                modalElements.description.textContent = descriptionToShow;
+                modalElements.description.style.display = descriptionToShow ? 'block' : 'none';
+            }
 
             // Optimized: Use DocumentFragment for batch tag insertion
             const fragment = document.createDocumentFragment();
-            tags.forEach(tag => {
+            (Array.isArray(tags) ? tags : []).forEach(tag => {
                 const tagEl = document.createElement('span');
                 tagEl.className = 'tag';
                 tagEl.textContent = tag;
@@ -923,8 +945,8 @@
         });
 
         // Project popups sourced from JSON for modularity
-        const popupData = {};
-        const popupFiles = {
+        const projectPopupData = {};
+        const projectPopupFiles = {
             'energy-market-forecasting': 'energy-market-forecasting',
             'explainable-ai': 'explainable-ai',
             'portfolio-tracker': 'portfolio-tracker',
@@ -933,12 +955,20 @@
             'cost-of-living-scraper': 'cost-of-living-scraper'
         };
 
+        // Publication popups mirror project popup behavior
+        const publicationPopupData = {};
+        const publicationPopupFiles = {
+            'tale-two-florida-cities': 'flood-risk-perceptions-florida',
+            'demand-response-ottawa': 'demand-response-ottawa',
+            'residential-demand-response-ontario': 'residential-dr-ontario'
+        };
+
         function openProjectPopup(key, el) {
-            const data = popupData[key];
+            const data = projectPopupData[key];
             if (data) {
                 openModal(
                     data.title || data.cardTitle || '',
-                    data.modalDescription || data.cardDescription || '',
+                    { summary: data.cardDescription || '', body: data.modalDescription || data.cardDescription || '' },
                     Array.isArray(data.tags) ? data.tags : [],
                     data.link || '#'
                 );
@@ -949,19 +979,59 @@
                 const title = el.querySelector('h3')?.textContent || '';
                 const desc = el.querySelector('p')?.textContent || '';
                 const tags = Array.from(el.querySelectorAll('.tag')).map(t => t.textContent);
-                const link = el.getAttribute('href') || '#';
-                openModal(title, desc, tags, link);
+                const link = el.getAttribute('href') || el?.dataset?.link || '#';
+                openModal(title, { summary: desc, body: desc }, tags, link);
+            }
+        }
+
+        function openPublicationPopup(key, event, el) {
+            if (event) {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1) return; // allow new tab behavior
+                event.preventDefault();
+            }
+
+            const data = publicationPopupData[key];
+            if (data) {
+                openModal(
+                    data.title || data.cardTitle || '',
+                    { summary: data.cardDescription || '', body: data.modalDescription || data.cardDescription || '' },
+                    Array.isArray(data.tags) ? data.tags : [],
+                    data.link || '#'
+                );
+                return;
+            }
+
+            if (el) {
+                const title = el.querySelector('h3')?.textContent || '';
+                const desc = el.querySelector('p')?.textContent || '';
+                const tags = Array.from(el.querySelectorAll('.tag')).map(t => t.textContent);
+                const link = el.getAttribute('href') || el?.dataset?.link || '#';
+                openModal(title, { summary: desc, body: desc }, tags, link);
             }
         }
 
         async function loadProjectPopups() {
-            const entries = Object.entries(popupFiles);
+            const entries = Object.entries(projectPopupFiles);
             await Promise.all(entries.map(async ([key, file]) => {
                 try {
                     const res = await fetch(`content/projects/popups/${file}.json`, { cache: 'no-cache' });
                     if (!res.ok) return;
                     const json = await res.json();
-                    popupData[key] = json;
+                    projectPopupData[key] = json;
+                } catch (err) {
+                    // ignore; fallback will use card content
+                }
+            }));
+        }
+
+        async function loadPublicationPopups() {
+            const entries = Object.entries(publicationPopupFiles);
+            await Promise.all(entries.map(async ([key, file]) => {
+                try {
+                    const res = await fetch(`content/publications/popups/${file}.json`, { cache: 'no-cache' });
+                    if (!res.ok) return;
+                    const json = await res.json();
+                    publicationPopupData[key] = json;
                 } catch (err) {
                     // ignore; fallback will use card content
                 }
@@ -969,6 +1039,7 @@
         }
 
         loadProjectPopups();
+        loadPublicationPopups();
 
     </script>
 </body>

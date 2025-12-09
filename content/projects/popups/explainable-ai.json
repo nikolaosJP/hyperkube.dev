@@ -1,8 +1,8 @@
 {
   "title": "Explainable AI Platform",
   "cardTitle": "Explainable AI Platform",
-  "cardDescription": "Interactive XAI playground with narrated reasoning.",
-  "modalDescription": "Interactive XAI playground where models narrate their reasoning while you poke, drag, and generally prod them like a curious kid in a lab.",
+  "cardDescription": "ML models that actually explain their reasoning out loud.",
+  "modalDescription": "Fit your model of choice, whether it’s a linear classifier, a forest, or a neural net, then nudge the inputs and watch the boundary reshape instantly. Instead of taking the algorithm’s word for it, you get visual proof you can actually challenge; no PhD needed.",
   "tags": ["#XAI", "#Python", "#Visualization"],
   "link": "post.html?id=explainable-ai"
 }

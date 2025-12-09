@@ -1,8 +1,8 @@
 {
   "title": "Goal Tracker",
   "cardTitle": "Goal Tracker",
-  "cardDescription": "Turns daily tasks into GPS for big yearly goals.",
-  "modalDescription": "Bridges the gap between today’s boring tasks and this year’s heroic goals so your vision board stops freelancing.",
+  "cardDescription": "Connects today's boring tasks to your big yearly goals.",
+  "modalDescription": "Cascades yearly goals into quarterly, monthly, weekly, and daily tasks so you stop asking what should I do today and start asking what moves the system forward. React + Chart.js front end, Python backend with SQLite/PostgreSQL; a Russian nesting doll of ambition with burndown charts.",
   "tags": ["#React", "#Python", "#Productivity", "#WebDev"],
   "link": "post.html?id=goal-tracker"
 }
