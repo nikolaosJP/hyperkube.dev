@@ -4,7 +4,7 @@ date: 2018-07-14
 tags: "#energy-efficiency #urban-policy"
 ---
 
-**Full chapter title:** *Tokyo’s Low-Emission Development Strategies Underlying the Promotion of Energy Efficiency in Public and Private Buildings* 
+**Full chapter title:** *Tokyo’s Low-Emission Development Strategies Underlying the Promotion of Energy Efficiency in Public and Private Buildings*  
 
 *Because cities do not magically decarbonize themselves, no matter how many climate pledges they post on social media.*
 
@@ -41,4 +41,3 @@ Tokyo’s philosophy is simple and effective: make low-emission behavior the pat
 <div class="cta-wrapper">
   <a class="cta-button" href="https://link.springer.com/chapter/10.1007/978-981-13-0782-9_10" target="_blank" rel="noopener noreferrer">View Publication</a>
 </div>
-

@@ -43,4 +43,3 @@ Do that, and suddenly becoming a “prosumer” doesn’t feel like homework, it
 <div class="cta-wrapper">
   <a class="cta-button" href="https://doi.org/10.1016/j.enpol.2019.111169" target="_blank" rel="noopener noreferrer">View DOI</a>
 </div>
-

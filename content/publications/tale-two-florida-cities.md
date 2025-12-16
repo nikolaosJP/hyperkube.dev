@@ -47,4 +47,3 @@ Understanding people solves everything else.
 <div class="cta-wrapper">
   <a class="cta-button" href="https://doi.org/10.1007/s11027-024-10129-1" target="_blank" rel="noopener noreferrer">View DOI</a>
 </div>
-

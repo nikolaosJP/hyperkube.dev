@@ -43,4 +43,3 @@ If Shinchi can pair its impressive physical reconstruction with social revitaliz
 <div class="cta-wrapper">
   <a class="cta-button" href="https://www.researchgate.net/publication/349194848_Insights_on_Shinci_Town%27s_Sustainable_Trajectory_Through_Community_Input" target="_blank" rel="noopener noreferrer">View Publication</a>
 </div>
-

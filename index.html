@@ -539,6 +539,11 @@
 
             <div id="tab-articles" class="tab-content">
                 <div class="grid-3" id="articles-grid">
+                    <a class="card-box" href="post.html?id=social-life-of-stocks" data-popup="social-life-of-stocks" onclick="openPublicationPopup('social-life-of-stocks', event, this)">
+                        <h3>The Social Life of Stocks</h3>
+                        <p>Repairing portfolios with covariance-aware projection so correlation actually matters.</p>
+                        <div class="tech-stack-tags"><span class="tag">#investing</span><span class="tag">#risk</span></div>
+                    </a>
                     <a class="card-box" href="post.html?id=tale-two-florida-cities" data-popup="tale-two-florida-cities" onclick="openPublicationPopup('tale-two-florida-cities', event, this)">
                         <h3>Flood risk perceptions in Florida cities</h3>
                         <p>Florida cities pick lifeboats: sandbags or denial.</p>
@@ -960,7 +965,8 @@
         const publicationPopupFiles = {
             'tale-two-florida-cities': 'flood-risk-perceptions-florida',
             'demand-response-ottawa': 'demand-response-ottawa',
-            'residential-demand-response-ontario': 'residential-dr-ontario'
+            'residential-demand-response-ontario': 'residential-dr-ontario',
+            'social-life-of-stocks': 'social-life-of-stocks'
         };
 
         function openProjectPopup(key, el) {

@@ -4,7 +4,7 @@ date: 2019-09-27
 tags: "#space #sustainability #policy"
 ---
 
-**Full article title:** *Sustainable space exploration and its relevance to the privatization of space ventures* 
+**Full article title:** *Sustainable space exploration and its relevance to the privatization of space ventures*  
 
 *Because space looks big and empty until you try to regulate it, at which point it becomes a legal escape room with no obvious exit.*
 
@@ -46,4 +46,3 @@ If we want an orbital economy that is both open and equitable, we need to resolv
 <div class="cta-wrapper">
   <a class="cta-button" href="https://doi.org/10.1016/j.actaastro.2019.09.037" target="_blank" rel="noopener noreferrer">View DOI</a>
 </div>
-

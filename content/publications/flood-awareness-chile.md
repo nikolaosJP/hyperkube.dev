@@ -4,7 +4,7 @@ date: 2019-06-13
 tags: "#flooding #community #mapping"
 ---
 
-**Full article title:** *Understanding Community-Level Flooding Awareness in Remote Coastal Towns in Northern Chile through Community Mapping* 
+**Full article title:** *Understanding Community-Level Flooding Awareness in Remote Coastal Towns in Northern Chile through Community Mapping*  
 
 *Because even people who live beside the ocean don't always know where water will go when it decides to use PTO.*
 
@@ -28,4 +28,3 @@ Better communication, clearer maps, and more regular engagement are needed to en
 <div class="cta-wrapper">
   <a class="cta-button" href="https://doi.org/10.3390/geosciences9070279" target="_blank" rel="noopener noreferrer">View DOI</a>
 </div>
-
