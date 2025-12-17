@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hypercube.dev // SYSTEM_ROOT</title>
+    <title>hyperkube.dev // SYSTEM_ROOT</title>
     
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -431,7 +431,7 @@
 
     <nav>
         <div class="container nav-inner">
-            <a href="index.html" class="logo">hypercube<span class="green">.dev</span></a>
+            <a href="index.html" class="logo">hyperkube<span class="green">.dev</span></a>
             <div class="nav-links">
                 <a href="index.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Terminal</a>
                 <a href="post.html?id=about" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> About</a>
@@ -457,7 +457,7 @@
                 <div class="terminal-body" id="term-display">
                     <div id="boot-log"></div>
                     <div style="display:flex" id="term-current-line">
-                        <span class="prompt-command">[guest@hypercube.dev ~]$</span>
+                        <span class="prompt-command">[guest@hyperkube.dev ~]$</span>
                         <input type="text" id="playground-input" class="term-input" autocomplete="off">
                     </div>
                 </div>
@@ -669,7 +669,7 @@
         </div>
     </section>
 
-    <footer><div class="container" style="text-align: center; padding: 2rem; color: #666; font-family: var(--font-mono); font-size: 0.8rem;">echo "© 2025 hypercube.dev"</div></footer>
+    <footer><div class="container" style="text-align: center; padding: 2rem; color: #666; font-family: var(--font-mono); font-size: 0.8rem;">echo "© 2025 hyperkube.dev"</div></footer>
 
     <!-- Modal Structure -->
     <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
@@ -839,7 +839,7 @@
                 skillElements.skillIcon.innerHTML = d.icon || '';
             }
             if (skillElements.skillOutput) {
-                skillElements.skillOutput.innerHTML = `<div class="prompt-line"><span class="p-user">hypercube</span>:<span class="p-path">~/skills</span>$ <span class="p-cmd">cat ${d.file}</span></div><pre style="margin:0;font-family:inherit;white-space:pre-wrap">${d.content}</pre><div class="prompt-line"><span class="p-user">hypercube</span>:<span class="p-path">~/skills</span>$_</div>`;
+                skillElements.skillOutput.innerHTML = `<div class="prompt-line"><span class="p-user">hyperkube</span>:<span class="p-path">~/skills</span>$ <span class="p-cmd">cat ${d.file}</span></div><pre style="margin:0;font-family:inherit;white-space:pre-wrap">${d.content}</pre><div class="prompt-line"><span class="p-user">hyperkube</span>:<span class="p-path">~/skills</span>$_</div>`;
             }
         }
         window.renderSkill = renderSkill;

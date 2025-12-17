@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post // hypercube.dev</title>
+    <title>Post // hyperkube.dev</title>
 
     <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -268,7 +268,7 @@
 
     <nav>
         <div class="container nav-inner">
-            <a href="index.html" class="logo">hypercube<span class="green">.dev</span></a>
+            <a href="index.html" class="logo">hyperkube<span class="green">.dev</span></a>
             <div class="nav-links">
                 <a href="index.html" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Terminal</a>
                 <a href="post.html?id=about" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> About</a>
@@ -525,7 +525,7 @@
         function setInitialTitle(postId, container) {
             const title = titleManifest[postId];
             if (!title || !container) return;
-            document.title = `${title} // hypercube.dev`;
+            document.title = `${title} // hyperkube.dev`;
             container.innerHTML = `
                 <div style="padding: 3rem 0; text-align: center;">
                     <h1 style="margin-bottom: 0.5rem;">${title}</h1>
@@ -904,7 +904,7 @@ module_init(hello_init);
 module_exit(hello_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("hypercube");
+MODULE_AUTHOR("hyperkube");
 MODULE_DESCRIPTION("A simple kernel module");</code></pre>
                     </section>
                     <section id="compilation">
@@ -1092,7 +1092,7 @@ MODULE_DESCRIPTION("A simple kernel module");</code></pre>
 
         // Render post
         function renderPost(post, postContent, tocElement, postId) {
-            document.title = post.title + " // hypercube.dev";
+            document.title = post.title + " // hyperkube.dev";
             postContent.innerHTML = `
                 <header class="post-header">
                     <h1>${post.title}</h1>

@@ -7,7 +7,7 @@
 
 (function() {
     const SYSTEM_PROMPT = `
-You are a helpful, friendly AI assistant living inside hypercube's portfolio terminal.
+You are a helpful, friendly AI assistant living inside hyperkube's portfolio terminal.
 - You are NOT a robot; be natural and conversational.
 - Keep responses short (max 2-3 sentences).
 - Do not use Markdown formatting.

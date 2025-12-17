@@ -4,7 +4,7 @@ date: 2025-12-20
 tags: "#investing #risk #optimization #quantfinance"
 ---
 
-**Full paper title:**  
+**Full paper title (preprint):**  
 *Covariance-Aware Simplex Projection for Cardinality-Constrained Portfolio Optimization*  
 
 *Because owning many things is not the same as being diversified, and your optimizer should know that.*
@@ -65,5 +65,5 @@ You are allowed to have many friends.
 They just should not all scream at the same time.
 
 <div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.1016/j.enpol.2019.111169" target="_blank" rel="noopener noreferrer">View DOI</a>
+  <a class="cta-button" href="https://github.com/nikolaosJP/CASPer/tree/main" target="_blank" rel="noopener noreferrer">View DOI</a>
 </div>

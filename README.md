@@ -1,4 +1,4 @@
-# hypercube.dev
+# hyperkube.dev
 
 Personal site built as a static HTML/CSS/JS project. No build tooling or framework required. The repo contains the landing page, blog shell, and supporting JavaScript for the terminal-style assistant.
 

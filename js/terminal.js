@@ -10,7 +10,7 @@
     const termPrompt = termLine ? termLine.querySelector('.prompt-command') : null;
     const terminalWindow = document.querySelector('.terminal-window');
     const terminalBar = terminalWindow ? terminalWindow.querySelector('.terminal-bar') : null;
-    const TERMINAL_PROMPT = '[guest@hypercube.dev ~]$';
+    const TERMINAL_PROMPT = '[guest@hyperkube.dev ~]$';
 
     if (termPrompt) termPrompt.textContent = TERMINAL_PROMPT;
     const defaultPromptHTML = TERMINAL_PROMPT;
@@ -135,7 +135,7 @@ Standard Commands:
   theme [style] - Change terminal theme (matrix, midnight, retro, hacker)
   games         - List available console games
   yatmal [text] - Rooftop rant of legend
-  projects      - List the actual projects built by hypercube
+  projects      - List the actual projects built by hyperkube
   publications  - List recent publications
   education     - Show education background
   neofetch      - Display system information (alias: netofetch)
@@ -228,7 +228,7 @@ Try: help to list available commands, or simply say something to communicate wit
             return applyTheme(choice);
         },
         neofetch: () => (
-`hypercube@dev
+`hyperkube@dev
 ----------------
 OS: Ubuntu 22.04.4 LTS (WSL2)
 Kernel: 6.6.87.2-microsoft-standard-WSL2
@@ -240,7 +240,7 @@ Memory: 11GiB total
 Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
         ),
         netofetch: () => (
-`hypercube@dev
+`hyperkube@dev
 ----------------
 OS: Ubuntu 22.04.4 LTS (WSL2)
 Kernel: 6.6.87.2-microsoft-standard-WSL2
