@@ -95,6 +95,62 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
         }
+        .nav-toggle {
+            display: none;
+            background: #0c0c0c;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            width: 42px;
+            height: 38px;
+            padding: 0;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s, background 0.15s;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-toggle:hover { border-color: var(--terminal-green); color: var(--terminal-green); }
+        .hamburger {
+            width: 18px;
+            height: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger span {
+            height: 2px;
+            width: 100%;
+            background: currentColor;
+            border-radius: 2px;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(6px);
+            z-index: 120;
+            padding: 90px 1.5rem 2rem 1.5rem;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu ul { list-style: none; padding: 0; margin: 0; }
+        .mobile-menu li { margin-bottom: 1rem; }
+        .mobile-menu a {
+            display: block;
+            padding: 0.9rem 1rem;
+            border: 1px solid #1a1a1a;
+            border-radius: 10px;
+            background: rgba(20, 20, 20, 0.85);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+        }
+        .mobile-menu a:hover { border-color: var(--terminal-green); color: var(--terminal-green); }
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: inline-flex; }
+        }
         /* ============================================ */
 
         .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
@@ -167,8 +223,22 @@
                 <a href="index.html#skills" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Skills</a>
                 <a href="index.html#contact" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Contact</a>
             </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
         </div>
     </nav>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Terminal</a></li>
+            <li><a href="post.html?id=about">About</a></li>
+            <li><a href="projects-blog.html">Projects</a></li>
+            <li><a href="blog.html">Publications</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <div class="archive-wrapper">
         <aside class="left-sidebar">
@@ -394,6 +464,28 @@
         }
 
         runWhenReady();
+
+        // Mobile nav toggle
+        (function setupMobileMenu() {
+            const toggle = document.getElementById('nav-toggle');
+            const menu = document.getElementById('mobile-menu');
+            if (!toggle || !menu) return;
+
+            const closeMenu = () => {
+                menu.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            };
+            toggle.addEventListener('click', () => {
+                menu.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
+            });
+            menu.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') closeMenu();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        })();
     </script>
 
 </body>

@@ -104,14 +104,31 @@
             background: #0c0c0c;
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            padding: 0.5rem 0.75rem;
+            width: 42px;
+            height: 38px;
+            padding: 0;
             border-radius: 8px;
             font-family: var(--font-mono);
             font-size: 0.85rem;
             cursor: pointer;
             transition: border-color 0.15s, color 0.15s, background 0.15s;
+            align-items: center;
+            justify-content: center;
         }
         .nav-toggle:hover { border-color: var(--terminal-green); color: var(--terminal-green); }
+        .hamburger {
+            width: 18px;
+            height: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger span {
+            height: 2px;
+            width: 100%;
+            background: currentColor;
+            border-radius: 2px;
+        }
         .mobile-menu {
             display: none;
             position: fixed;
@@ -136,7 +153,7 @@
         .mobile-menu a:hover { border-color: var(--terminal-green); color: var(--terminal-green); }
         @media (max-width: 900px) {
             .nav-links { display: none; }
-            .nav-toggle { display: inline-flex; align-items: center; gap: 6px; }
+            .nav-toggle { display: inline-flex; }
         }
         /* ============================================ */
 
@@ -343,7 +360,9 @@
                 <a href="index.html#skills" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Skills</a>
                 <a href="index.html#contact" onmouseenter="handleNavEnter(this)" onmouseleave="handleNavLeave(this)"><span class="nav-prefix">//</span> Contact</a>
             </div>
-            <button class="nav-toggle" id="nav-toggle">Menu</button>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
         </div>
     </nav>
 
@@ -443,9 +462,13 @@
             const menu = document.getElementById('mobile-menu');
             if (!toggle || !menu) return;
 
-            const closeMenu = () => menu.classList.remove('open');
+            const closeMenu = () => {
+                menu.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            };
             toggle.addEventListener('click', () => {
                 menu.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
             });
             menu.addEventListener('click', (e) => {
                 if (e.target.tagName === 'A') closeMenu();
