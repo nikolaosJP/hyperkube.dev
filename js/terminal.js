@@ -176,18 +176,18 @@ Can they come up with a strategy that guarantees at least 9 of them survive, no 
 Commands: help, hint, reveal, quit`,
             hint: `Hint: Prisoner #1 can "sacrifice" their guess to transmit 1 bit of information to everyone else.
 Think: odd/even (parity) of a color count.`,
-            solution: `Solution (guarantees 9 survivors):
-1) Agree on a rule: Prisoner #1 announces parity of (say) RED hats in front.
-   - If #1 sees an EVEN number of red hats ahead, they say "red".
-   - If #1 sees an ODD number of red hats ahead, they say "blue".
-   (This first call may be wrong about their own hat; it's a message.)
+            solution: `Beforehand, the prisoners agree that the first person will not try to guess their own hat. Instead, they will use their answer to send information.
 
-2) Now each prisoner #2–#10 can deduce their own hat:
-   - They can see all hats ahead, and they’ve heard the parity message.
-   - They keep track of how many red hats are still "unaccounted for" based on what they see ahead and what earlier prisoners must have had.
-   - If their counted reds ahead match the announced parity, their hat is BLUE; otherwise it’s RED.
+When the hats are on, the last prisoner looks ahead and counts the red hats. If the number is even, they say “blue.” If it is odd, they say “red.” This single word tells everyone whether the total number of red hats is even or odd.
 
-Result: Prisoner #1 might die, but prisoners #2–#10 all know their hat color with certainty → at least 9 survive.`,
+From there, each prisoner hears the clue, sees the hats in front of them, and subtracts what they already know. Since their own hat is the only unknown, they can deduce its color and answer correctly.
+
+Only the first prisoner is at risk. Everyone else is guaranteed to survive.
+
+Example:
+If the first prisoner says “red,” that means an odd number of red hats lies ahead. The second prisoner sees eight red hats in front of them, an even number, so their own hat must be red to make the total odd.
+
+Thus, no matter how the hats are assigned, at least nine prisoners live.`,
             // No automatic grading; this is a hint/reveal style riddle.
         }
     };
