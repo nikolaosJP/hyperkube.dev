@@ -209,6 +209,54 @@ Now generalize. If there are N blue-eyed people, each blue-eyed person sees N−
 
 In the original problem, N = 100, so all 100 blue-eyed people leave on Night 100, and the 100 brown-eyed people remain.`,
             // No automatic grading; this is a hint/reveal style riddle.
+        },
+        boolos: {
+            id: 'boolos',
+            title: 'The Hardest Logic Puzzle Ever (Boolos)',
+            category: 'Logic / Deduction',
+            prompt: `There are three beings—call them A, B, and C. Each is exactly one of:
+
+True: always tells the truth
+False: always lies
+Random: answers randomly (truthfully or falsely), independently each time
+
+They understand your language, but they answer every yes/no question in their own language using only two words: “da” and “ja.” You do not know which means “yes” and which means “no.”
+
+You may ask exactly three yes/no questions total, directed to any one being per question (you can choose which being each time). Each question must be answered with da or ja.
+
+Goal: Determine which being is True, which is False, and which is Random, within those three questions.
+
+(This is Boolos’ famous puzzle, commonly called “The Hardest Logic Puzzle Ever.”)
+
+Commands: help, hint, reveal, quit`,
+            hint: `Hint: Use a “universal translator” question form that cancels out truth/lie AND the unknown meaning of “da/ja”, like:
+“If I asked you P, would you say ‘ja’?”
+Then use branching to ensure your later questions go to a non-Random being.`,
+            solution: `Key tool (the “universal translator”):
+For a non-Random being (True or False), the question:
+  Q(P): “If I asked you P, would you say ‘ja’?”
+will be answered with:
+  - “ja” iff P is true
+  - “da” iff P is false
+regardless of which word means “yes” and regardless of whether the being is True or False.
+
+Now the 3-question strategy:
+
+1) Ask A: Q(“Is B Random?”)
+   - If A answers “ja”, set D = C.
+   - If A answers “da”, set D = B.
+   (D is guaranteed to be non-Random: if A is Random then both B and C are non-Random anyway; if A is not Random, A’s answer tells you which of B/C is Random, so you pick the other.)
+
+2) Ask D: Q(“Is A Random?”)
+   - If D answers “ja”, then A is Random.
+   - If D answers “da”, then A is not Random, so the Random one is the remaining being among {B, C} that is not D.
+
+3) Ask D: Q(“Are you True?”)
+   - If D answers “ja”, then D is True and the other non-Random being is False.
+   - If D answers “da”, then D is False and the other non-Random being is True.
+
+At that point you have identified True, False, and Random within exactly three questions.`,
+            // No automatic grading; this is a hint/reveal style riddle.
         }
     };
 
@@ -368,6 +416,7 @@ Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
 `Riddles:
   - riddle hats10  (${riddleBank.hats10.category}) — ${riddleBank.hats10.title}
   - riddle blueeyes  (${riddleBank.blueeyes.category}) — ${riddleBank.blueeyes.title}
+  - riddle boolos  (${riddleBank.boolos.category}) — ${riddleBank.boolos.title}
 `
         ),
         riddle: (args) => {
