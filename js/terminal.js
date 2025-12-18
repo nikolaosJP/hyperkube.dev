@@ -162,20 +162,13 @@ Try: help to list available commands, or simply say something to communicate wit
             id: 'hats10',
             title: 'The Hat Line (10 Prisoners)',
             category: 'Logic / Deduction',
-            prompt: `• 10 prisoners are marched into a hallway and lined up single-file like the world’s least fun conga line. A guard walks down the row and drops a hat on each head. The hats come in exactly two colors: red and blue. That’s it. No “maybe teal.” No “I’m colorblind, your honor.” Just red or blue, because the universe loves binary choices when your life depends on them.
+            prompt: `Ten prisoners are lined up in a hallway, all facing forward. One by one, a guard places a hat on each head. Every hat is either red or blue. There are no mirrors, no reflections, and no way for anyone to see their own hat.
 
-Here’s the setup:
+The prisoner at the back of the line can see the nine hats in front of them. Each person ahead sees one fewer, until the prisoner at the very front sees none at all.
 
-- Everyone faces forward, so you can only see hats in front of you.
-- Prisoner #1 (at the very back) can see 9 hats.
-- Prisoner #2 can see 8 hats.
-- …
-- Prisoner #10 (at the front) sees 0 hats, which is very on-brand for being last in line: no information, but still fully judged.
-- Nobody can see their own hat.
-- Starting with #1 and moving forward, each prisoner must say exactly one word: “red” or “blue.”
-- Everyone hears everything that’s said.
-- Guess right: live. Guess wrong: die.
-- Before the hats go on, the prisoners are allowed to agree on a strategy, like a doomed fantasy football league.
+Starting from the back, each prisoner must say exactly one word; either “red” or “blue.” Everyone hears every answer. If a prisoner correctly names the color of their own hat, they live. If they are wrong, they die. Remaining silent is not an option.
+
+Before any hats are placed, the prisoners are allowed to meet and agree on a strategy.
 
 The question is:
 Can they come up with a strategy that guarantees at least 9 of them survive, no matter how the hats are assigned?
