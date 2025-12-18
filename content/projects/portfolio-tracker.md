@@ -2,6 +2,7 @@
 title: Portfolio Tracker
 date: October 2, 2025
 tags: "#Python #QuantFinance #PortfolioAnalytics"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Portfolio-Tracker
 ---
 
 # Portfolio Tracker  
@@ -36,7 +37,3 @@ Portfolio Tracker is the friend who shows up with a label maker and a sense of h
 
 ## Why Trust It
 It’s pure Python + Polars for the heavy lifting, `yfinance` for fresh prices, Matplotlib for the drawings, and notebooks so you can see every step. No hidden API calls, no mystery sauce, just your data, made legible.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://github.com/nikolaosJP/Projects/tree/main/Portfolio-Tracker" target="_blank" rel="noopener noreferrer">View the code</a>
-</div>

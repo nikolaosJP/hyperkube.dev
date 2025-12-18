@@ -2,6 +2,7 @@
 title: Neural Style Transfer (pretrained VGG19)
 date: May 15, 2022
 tags: "#DeepLearning #ComputerVision #Art #Python"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Introduction-to-style-transferring
 ---
 
 ## Neural Style Transfer
@@ -56,6 +57,3 @@ This is how Instagram filters got their swagger.
 ## Stack
 
 Pick TensorFlow or PyTorch, load VGG19 as your feature oracle, balance your content/style weights to taste, and decide whether you want the slow artisanal method or the lightning-fast “I trained a network to pretend it’s artsy” version.
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Introduction-to-style-transferring)
-

@@ -2,6 +2,7 @@
 title: Goal Tracker
 date: June 4, 2025
 tags: "#React #Python #Productivity #WebDev"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Goal-Tracker
 ---
 
 ## Why This Exists
@@ -61,4 +62,3 @@ The app tries to enforce this without being a tyrant, or at least a friendly tyr
 
 **Currently working**: multi-timeframe hierarchy, progress dashboards, category grouping, and completion logic.  
 **Currently building**: habits (Strava/GitHub), reminders, reflection prompts, and velocity analytics; the features that turn goals into systems and systems into momentum.
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Goal-Tracker)

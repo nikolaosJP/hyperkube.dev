@@ -2,6 +2,7 @@
 title: The Social Life of Stocks: How Correlations Drive Portfolio Risk
 date: 2025-12-20
 tags: "#investing #risk #optimization #quantfinance"
+publication_url: https://github.com/nikolaosJP/CASPer/tree/main
 ---
 
 **Full paper title (preprint):**  
@@ -63,7 +64,3 @@ The lesson is simple. Limiting the number of assets is realistic. Repairing port
 
 You are allowed to have many friends.  
 They just should not all scream at the same time.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://github.com/nikolaosJP/CASPer/tree/main" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

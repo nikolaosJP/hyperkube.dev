@@ -2,6 +2,7 @@
 title: Movie Recommendation System
 date: June 12, 2023
 tags: "#NeuralNetworks #CollaborativeFiltering #RecSys #MovieLens"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Recommendation-Systems
 ---
 
 ## Why Build It
@@ -41,6 +42,4 @@ These numbers translate roughly to: “The model has a pretty good idea of what 
 Cold-start gaps are patched with content features (genres, cast, release year), because even the best CF model can’t guess the preferences of someone who just showed up and rated nothing.
 
 Swap the dataset, keep the math, and this pipeline becomes a recommender for products, playlists, news, and even who-to-follow social suggestions, just replace “movie” with whatever people obsess over next.
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Recommendation-Systems)
 

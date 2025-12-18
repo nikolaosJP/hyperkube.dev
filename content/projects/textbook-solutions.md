@@ -2,6 +2,7 @@
 title: Textbook Solutions
 date: September 5, 2022
 tags: "#Statistics #PredictiveModeling #Learning #Math"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Textbook-Exercises
 ---
 
 ## Why This Exists
@@ -66,5 +67,3 @@ Machine learning tools get fancier every year. But when something breaks—and s
 - Ridge vs. lasso comparisons  
 
 **Study Approach**: Light hints before solutions to prevent passive skimming and encourage active suffering.
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Textbook-Exercises)

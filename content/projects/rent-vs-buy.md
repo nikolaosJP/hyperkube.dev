@@ -2,6 +2,7 @@
 title: Rent vs Buy Simulator
 date: February 14, 2024
 tags: "#Finance #Modeling #RealEstate #Python"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Rent-vs-Buy-Simulator
 ---
 
 ## Why Build a Rent-vs-Buy Simulator
@@ -61,5 +62,3 @@ For a ¥40M home, 20 percent down, 1.9 percent mortgage, 0.5 percent annual rent
 - The projected net worth gap by year 25 is about 210.8M in favor of renting.
 
 Dial up appreciation or slow investment returns and buying may recover; crank rent inflation and it can flip too. The simulator exists so you can see exactly when (or if) that crossover happens instead of guessing.
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Rent-vs-Buy-Simulator)

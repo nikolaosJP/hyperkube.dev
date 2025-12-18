@@ -2,6 +2,7 @@
 title: Energy Market Forecasting
 date: August 8, 2025
 tags: "#Python #QuantEnergy #TimeSeries #XGBoost #Optuna #Backtesting #FeatureEngineering"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Energy-Market-Prediction
 ---
 
 ## The Irritation
@@ -35,7 +36,3 @@ Because “just hedge it” isn’t a plan, and “the wind will probably blow�
 - Power traders who want explainable-ish trees instead of black-box mysticism.  
 - Portfolio folks hedging exposure to intraday chaos.  
 - Anyone who prefers their PnL curve trending up and to the right.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://github.com/nikolaosJP/Projects/tree/main/Energy-Market-Prediction" target="_blank" rel="noopener noreferrer">View the code</a>
-</div>

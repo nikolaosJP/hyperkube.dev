@@ -2,6 +2,7 @@
 title: Residential demand response in Ottawa  
 date: 2023-07-24  
 tags: "#demand-response #energy #incentives"
+publication_url: https://doi.org/10.1007/s12053-023-10135-3
 ---
 
 **Full article title:** *Human-centered determinants of price and incentive-based residential demand response in Ottawa, Canada.*  
@@ -48,7 +49,3 @@ No magic algorithms, just the messy but honest truth about what makes people cli
 - Understand that pushing DR isn’t only about electricity, it’s about psychology, incentives, and human convenience.  
 
 Because at the end of the day, it’s not zeros and ones that you’re competing with, it’s “I don’t want my house to feel like a lab experiment.”
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.1007/s12053-023-10135-3" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

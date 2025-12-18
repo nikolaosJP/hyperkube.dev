@@ -2,6 +2,7 @@
 title: Sustainable space exploration
 date: 2019-09-27
 tags: "#space #sustainability #policy"
+publication_url: https://doi.org/10.1016/j.actaastro.2019.09.037
 ---
 
 **Full article title:** *Sustainable space exploration and its relevance to the privatization of space ventures*  
@@ -42,7 +43,3 @@ For space exploration to be genuinely sustainable, we need more than better rock
 The message is simple: privatization is already happening, sustainability is non-negotiable, and the only way forward is to build a governance system that treats space as a shared frontier instead of a cosmic loophole.
 
 If we want an orbital economy that is both open and equitable, we need to resolve today’s legal ambiguities before asteroid-mining claims turn into a gold-rush free-for-all and space debris evolves into a climate-scale disaster.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.1016/j.actaastro.2019.09.037" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

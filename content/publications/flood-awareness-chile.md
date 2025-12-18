@@ -2,6 +2,7 @@
 title: Chile's coastal flood checkup
 date: 2019-06-13
 tags: "#flooding #community #mapping"
+publication_url: https://doi.org/10.3390/geosciences9070279
 ---
 
 **Full article title:** *Understanding Community-Level Flooding Awareness in Remote Coastal Towns in Northern Chile through Community Mapping*  
@@ -24,7 +25,3 @@ The study concludes that participatory mapping is not just a feel-good exercise,
 
 ## Moving Forward  
 Better communication, clearer maps, and more regular engagement are needed to ensure that community mental models actually match the coastline’s behavior. The study shows that when residents and scientists collaborate, rather than work in parallel, communities walk away with sharper awareness, better preparedness, and fewer surprises from an ocean that has never cared about human assumptions.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.3390/geosciences9070279" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

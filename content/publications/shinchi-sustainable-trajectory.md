@@ -2,6 +2,7 @@
 title: Shinchi Town sustainability survey
 date: 2020-10-26
 tags: "#community #sustainability #recovery"
+publication_url: https://www.researchgate.net/publication/349194848_Insights_on_Shinci_Town%27s_Sustainable_Trajectory_Through_Community_Input
 ---
 
 **Full article title:** *Insights on Shinchi Town’s Sustainable Trajectory Through Community Input*  
@@ -39,7 +40,3 @@ In short: the buildings are back, but the glue that makes a town feel alive, cul
 Shinchi’s next steps aren’t about construction; they’re about connection. Strengthen community events. Teach kids local traditions before they disappear. Rethink mobility so that aging residents aren’t stranded. Explore e-bikes, buses, or anything that makes it easier for people to show up, because sustainability starts with people actually being able to reach each other.
 
 If Shinchi can pair its impressive physical reconstruction with social revitalization, it won’t just recover, it’ll evolve into a more resilient, cohesive community than before.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://www.researchgate.net/publication/349194848_Insights_on_Shinci_Town%27s_Sustainable_Trajectory_Through_Community_Input" target="_blank" rel="noopener noreferrer">View Publication</a>
-</div>

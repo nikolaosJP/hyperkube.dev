@@ -2,6 +2,7 @@
 title: Tokyo low emission building strategy
 date: 2018-07-14
 tags: "#energy-efficiency #urban-policy"
+publication_url: https://link.springer.com/chapter/10.1007/978-981-13-0782-9_10
 ---
 
 **Full chapter title:** *Tokyo’s Low-Emission Development Strategies Underlying the Promotion of Energy Efficiency in Public and Private Buildings*  
@@ -37,7 +38,3 @@ Tokyo shows that cities don’t need miracle tech to slash emissions. They need 
 The city’s Environmental Master Plan pushes the strategy further: more efficiency, more renewables, more smart-energy systems, and stricter standards. Essentially: “upgrade everything by 2030.”
 
 Tokyo’s philosophy is simple and effective: make low-emission behavior the path of least resistance and make high-emission behavior mildly annoying. So far, it’s working.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://link.springer.com/chapter/10.1007/978-981-13-0782-9_10" target="_blank" rel="noopener noreferrer">View Publication</a>
-</div>

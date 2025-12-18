@@ -2,6 +2,7 @@
 title: Residential demand response in Japan
 date: 2021-05-13
 tags: "#demand-response #energy #Japan"
+publication_url: https://doi.org/10.3390/en14102795
 ---
 
 **Full article title:** *Shedding Light on the Factors That Influence Residential Demand Response in Japan*  
@@ -74,7 +75,3 @@ If Japan wants DR adoption to soar, the recipe isn’t complicated:
 - **Lean into prosocial motivation, but with airtight transparency**
 
 With the right design, DR stops being an inconvenience and starts looking like an easy win for households, utilities, and the grid. And if people can save money *and* help others while reducing peak demand? Even better.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.3390/en14102795" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

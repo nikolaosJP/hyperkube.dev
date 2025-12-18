@@ -2,6 +2,7 @@
 title: Anomaly Detection
 date: July 18, 2022
 tags: "#VGG16 #ComputerVision #Manufacturing"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/MVTec-Anomaly-Detection
 ---
 
 ## Introduction
@@ -43,5 +44,3 @@ The model learns “normal” so well that anything abnormal becomes obvious. Th
 Once you realize that “learn normal, flag weird” is the entire trick, you start seeing it everywhere. Cracks in bridges? Same idea. Medical images with suspicious blobs? Yep. Cybersecurity logs that suddenly behave like they drank three espressos? Still the same recipe.
 
 Whenever the world behaves predictably for long enough, a model like this can learn the pattern and point out when reality wanders off script. And reality wanders off script a lot.
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/MVTec-Anomaly-Detection)

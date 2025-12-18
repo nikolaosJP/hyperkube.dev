@@ -2,6 +2,7 @@
 title: Explainable AI
 date: December 15, 2025
 tags: "#XAI #Python #Visualization"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Explainable-AI-XAI
 ---
 
 ## Teach Your Model to Use Its Inner Voice
@@ -37,7 +38,3 @@ No stack gymnastics. No black-box surprises. Just tools doing their job.
 As models get more involved in decisions that affect people’s lives (cough, LLMs, cough), a little transparency goes a long way. It doesn’t make the model perfect, but it does make it accountable. When you can see what influenced a prediction, you’re not guessing whether the result is reasonable, you’re informed enough to challenge it, fix it, or trust it.
 
 This platform is here to make that transparency feel natural instead of intimidating, and to turn explanations into something more helpful than a shrug dressed up as a probability score.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://github.com/nikolaosJP/Projects/tree/main/Explainable-AI-XAI" target="_blank" rel="noopener noreferrer">View the code</a>
-</div>

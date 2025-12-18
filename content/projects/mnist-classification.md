@@ -2,6 +2,7 @@
 title: MNIST: The "Hello World" of deep learning
 date: March 10, 2022
 tags: "#DeepLearning #ComputerVision #Python"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Exploring-MNIST-Dataset-with-MLPs
 ---
 
 ## Introduction
@@ -55,6 +56,4 @@ Fashion-MNIST introduces texture and slightly more existential confusion ("Is th
 MNIST gives you confidence. The next datasets give you humility.
 
 ![mnist sample](/content/projects/assets/mnist.jpeg)
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Exploring-MNIST-Dataset-with-MLPs)
 

@@ -2,6 +2,7 @@
 title: Residential DSM/DER willingness in Japan
 date: 2019-12-02
 tags: "#demand-side-management #energy #Japan"
+publication_url: https://doi.org/10.1016/j.enpol.2019.111169
 ---
 
 **Full article title:** *Assessing the willingness of residential electricity consumers to adopt demand side management and distributed energy resources: A case study on the Japanese market*  
@@ -39,7 +40,3 @@ If Japan wants its smart-grid future to actually happen, the solution is not “
 - Give consumers meaningful control instead of generic brochures
 
 Do that, and suddenly becoming a “prosumer” doesn’t feel like homework, it feels like common sense.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.1016/j.enpol.2019.111169" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

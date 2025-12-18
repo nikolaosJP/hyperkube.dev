@@ -2,6 +2,7 @@
 title: Residential DR determinants in Ontario
 date: 2021-10-16
 tags: "#smart-grid #demand-response #Canada"
+publication_url: https://www.researchgate.net/publication/357375929_Expert_Assessment_of_Prioritized_Determinants_For_a_Smarter_Grid_Through_The_Lens_of_Residential_Demand_Response_The_Case_Study_of_Ontario_Canada
 ---
 
 **Full article title:** *Expert Assessment of Prioritized Determinants for a Smarter Grid Through the Lens of Residential Demand Response: The Case Study of Ontario, Canada*  
@@ -31,7 +32,3 @@ design meaningful incentives, simplify programs so they can be explained without
 Ontario doesn’t need more DR pilots.  
 It needs DR programs designed for actual humans, running in an actual energy system, during actual Canadian winters, which is precisely what this paper finally maps out.
 
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://www.researchgate.net/publication/357375929_Expert_Assessment_of_Prioritized_Determinants_For_a_Smarter_Grid_Through_The_Lens_of_Residential_Demand_Response_The_Case_Study_of_Ontario_Canada" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>

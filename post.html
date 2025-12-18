@@ -313,12 +313,18 @@
             background-color: rgba(34, 197, 94, 0.08);
         }
 
+        .post-end-cta { margin-top: 3rem; }
+
         /* Responsive tweaks */
         @media (max-width: 1100px) {
             .post-wrapper { grid-template-columns: 1fr; grid-template-areas: "main" "toc"; gap: 1.5rem; }
             .left-sidebar { display: none; }
             article { grid-area: main; }
             .right-sidebar { grid-area: toc; position: static; margin-top: 0; }
+
+            /* Projects/Publications: TOC at page end is not useful on mobile */
+            body[data-post-category="projects"] .right-sidebar,
+            body[data-post-category="publications"] .right-sidebar { display: none; }
         }
         @media (max-width: 1000px) {
             body { font-size: 0.98rem; }
@@ -728,7 +734,8 @@
                 date: metadata.date || '',
                 tags: metadata.tags || '',
                 content: processedContent,
-                category: category
+                category: category,
+                metadata
             };
 
             // Cache the parsed result
@@ -737,478 +744,51 @@
             return post;
         }
 
-        // Legacy posts object (keeping for backwards compatibility)
-        const posts = {
-            'about': {
-                title: "About Me",
-                date: "2025",
-                tags: "#Human #Builder #PizzaEnthusiast",
-                content: `
-                    <section id="intro">
-                        <p>Hey there! Welcome to my little corner of the internet where I dump thoughts, code snippets, half-baked ideas, and the occasional tutorial that actually works.</p>
-                        <p>This site is where I share things I've learned building AI systems, trading tools, and whatever else catches my curiosity. You'll find technical write-ups, project notes, and probably too many references to pizza.</p>
-                        <p>No ads, no AI slop, no affiliate links, no tracking scripts, no paywalls. Just a human writing about things they find interesting. Novel concept, I know.</p>
-                    </section>
-                    <section id="me">
-                        <h3>The human behind the terminal</h3>
-                        <p>I build intelligent systems for fintech—mostly agents that make trading decisions and manage risk without setting everything on fire. Former climate scientist who traded hurricanes for high-frequency trading (the volatility is about the same).</p>
-                        <p>When I'm not debugging production incidents at 3am, you'll find me:</p>
-                        <ul>
-                            <li>Jumping out of perfectly good airplanes</li>
-                            <li>Arguing about the correct way to make pizza (it's Neapolitan, fight me)</li>
-                            <li>Tinkering with Rust projects that will never see production</li>
-                            <li>Reading papers I barely understand and pretending I do</li>
-                        </ul>
-                        <p>I believe in shipping quickly, observing religiously, and being honest about what works and what doesn't. Also strongly believe that the best code is the code you don't write.</p>
-                    </section>
-                    <section id="stack">
-                        <h3>What I mess with</h3>
-                        <p>Professionally: LLM agents, quantitative systems, time-series shenanigans, microstructure analytics, and making dashboards that people actually use.</p>
-                        <p>Tech-wise: Node.js, Python, Rust (aspirationally), React/Next for when designs need to become real things, and whatever else solves the problem.</p>
-                        <p>I like systems that are clever enough to be interesting but simple enough to debug at 3am. Bonus points if they don't require a PhD to understand.</p>
-                    </section>
-                    <section id="site">
-                        <h3>About this site</h3>
-                        <p>Built with vanilla JS because sometimes you don't need a framework. Designed to be fast, accessible, and readable on any device from a phone to a terminal browser.</p>
-                        <p>If you want to stay updated when I post something new, there's an RSS feed somewhere around here. Or don't—I'm not your mom.</p>
-                        <p>Hope you find something useful. Or at least mildly entertaining.</p>
-                    </section>
-                `
-            },
-            'echarts-react': {
-                title: "Integrating Apache ECharts with React & GPT-4",
-                date: "November 24, 2025",
-                tags: "#React #AI #DataViz",
-                content: `
-                    <section id="intro">
-                        <p>Apache ECharts is a powerful visualization library, and when combined with React and AI, it enables dynamic, data-driven dashboards that adapt to user needs.</p>
-                    </section>
-                    <section id="challenge">
-                        <h3>The Challenge</h3>
-                        <p>Traditional dashboards require manual configuration for each visualization. What if we could use GPT-4 to generate chart configurations based on natural language queries?</p>
-                    </section>
-                    <section id="implementation">
-                        <h3>Implementation</h3>
-                        <p>We built a React component that takes user prompts, sends them to GPT-4, and receives ECharts configuration objects in response. The AI understands the data schema and generates appropriate visualizations.</p>
-                        <pre><code>const ChartGenerator = ({ data }) => {
-  const [config, setConfig] = useState(null);
+        function getPostEndCtaSpec(post) {
+            const category = post?.category;
+            const metadata = post?.metadata || {};
 
-  const generateChart = async (prompt) => {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{
-        role: "system",
-        content: "Generate ECharts config from user request"
-      }, {
-        role: "user",
-        content: prompt + "\\nData: " + JSON.stringify(data)
-      }]
-    });
-    setConfig(JSON.parse(response.choices[0].message.content));
-  };
-
-  return &lt;ReactECharts option={config} /&gt;;
-};</code></pre>
-                    </section>
-                    <section id="results">
-                        <h3>Results</h3>
-                        <p>Users can now create complex visualizations just by describing what they want to see. "Show me monthly revenue as a line chart" instantly generates the appropriate configuration.</p>
-                    </section>
-                `
-            },
-            'docker-deployments': {
-                title: "Automating Docker Deployments with Node.js",
-                date: "October 10, 2025",
-                tags: "#DevOps #Docker #Node",
-                content: `
-                    <section id="intro">
-                        <p>Managing container deployments manually is error-prone and time-consuming. This post explores building a custom CLI tool for orchestrating Docker deployments.</p>
-                    </section>
-                    <section id="why">
-                        <h3>Why Build Custom Tooling?</h3>
-                        <p>While Kubernetes and Docker Swarm are excellent for large-scale operations, smaller teams often need simpler solutions that fit their specific workflow.</p>
-                    </section>
-                    <section id="architecture">
-                        <h3>Architecture</h3>
-                        <p>Our CLI tool uses Node.js to interact with the Docker API, providing commands for:</p>
-                        <ul>
-                            <li>Blue-green deployments</li>
-                            <li>Automated rollbacks</li>
-                            <li>Health checks and monitoring</li>
-                            <li>Configuration management</li>
-                        </ul>
-                        <pre><code>// deploy.js
-const Docker = require('dockerode');
-const docker = new Docker();
-
-async function deploy(serviceName, image) {
-  const container = await docker.createContainer({
-    Image: image,
-    name: serviceName + '-new',
-    HostConfig: {
-      RestartPolicy: { Name: 'always' }
-    }
-  });
-
-  await container.start();
-
-  // Health check
-  const healthy = await checkHealth(container);
-  if (healthy) {
-    await swapTraffic(serviceName);
-  } else {
-    await container.stop();
-    await container.remove();
-    throw new Error('Deployment failed health check');
-  }
-}</code></pre>
-                    </section>
-                    <section id="conclusion">
-                        <h3>Conclusion</h3>
-                        <p>This approach gives us fine-grained control while keeping complexity manageable.</p>
-                    </section>
-                `
-            },
-            'llm-memory': {
-                title: "Managing Context Windows in LLMs",
-                date: "September 15, 2025",
-                tags: "#AI #LLM #Engineering",
-                content: `
-                    <section id="intro">
-                        <p>Long-running conversations with LLMs face a fundamental challenge: limited context windows. This post explores strategies for maintaining coherent, context-aware conversations.</p>
-                    </section>
-                    <section id="problem">
-                        <h3>The Problem</h3>
-                        <p>Even with expanded context windows (128k+ tokens), conversations can exceed limits. More importantly, including everything reduces response quality and increases costs.</p>
-                    </section>
-                    <section id="strategies">
-                        <h3>Strategies</h3>
-                        <h4>1. Semantic Summarization</h4>
-                        <p>After every N exchanges, use the LLM itself to create a semantic summary of the conversation, preserving key facts while reducing token count.</p>
-                        <h4>2. Vector-Based Retrieval</h4>
-                        <p>Store message embeddings in a vector database. For each new query, retrieve the most relevant past exchanges rather than including the entire history.</p>
-                        <h4>3. Hierarchical Memory</h4>
-                        <p>Maintain multiple memory layers: immediate context (last few messages), session summary, and long-term facts. Each serves different purposes.</p>
-                        <pre><code>class ConversationMemory {
-  constructor() {
-    this.immediate = []; // Last 10 messages
-    this.summary = "";   // Session summary
-    this.facts = [];     // Extracted key facts
-  }
-
-  async addMessage(msg) {
-    this.immediate.push(msg);
-    if (this.immediate.length > 10) {
-      await this.consolidate();
-    }
-  }
-
-  async consolidate() {
-    const summary = await this.summarize(this.immediate);
-    this.summary = this.mergeSummaries(this.summary, summary);
-    this.facts.push(...await this.extractFacts(this.immediate));
-    this.immediate = this.immediate.slice(-3);
-  }
-}</code></pre>
-                    </section>
-                    <section id="impact">
-                        <h3>Real-World Impact</h3>
-                        <p>These techniques reduced our average context size by 70% while maintaining conversation quality, resulting in faster responses and lower costs.</p>
-                    </section>
-                `
-            },
-            'gpt-pokemon': {
-                title: "GPT Plays Pokémon",
-                date: "2024",
-                tags: "#Python #OpenAI #GameAI",
-                content: `
-                    <section id="intro">
-                        <p>An autonomous AI agent that plays Pokémon by reading game memory and making decisions in real-time.</p>
-                    </section>
-                    <section id="how">
-                        <h3>How It Works</h3>
-                        <p>The agent uses memory reading to understand the current game state, including player position, Pokémon stats, and battle conditions. GPT-4 analyzes this data and decides which actions to take.</p>
-                    </section>
-                    <section id="challenges">
-                        <h3>Technical Challenges</h3>
-                        <ul>
-                            <li>Real-time memory reading from the emulator</li>
-                            <li>Converting raw memory values into meaningful game state</li>
-                            <li>Managing API rate limits while maintaining responsive gameplay</li>
-                            <li>Teaching the AI battle strategy and type advantages</li>
-                        </ul>
-                        <p>The result is an AI that can navigate the game world, engage in battles, and make strategic decisions autonomously.</p>
-                    </section>
-                `
-            },
-            'computer-use': {
-                title: "Open Computer Use",
-                date: "2024",
-                tags: "#Docker #AI #Automation",
-                content: `
-                    <section id="intro">
-                        <p>AI-powered Windows automation running in Docker containers, enabling autonomous desktop interactions.</p>
-                    </section>
-                    <section id="architecture">
-                        <h3>Architecture</h3>
-                        <p>This project combines Claude's computer use capabilities with Docker to create isolated, controllable Windows environments that AI can interact with safely.</p>
-                    </section>
-                    <section id="usecases">
-                        <h3>Use Cases</h3>
-                        <ul>
-                            <li>Automated testing of desktop applications</li>
-                            <li>Data entry and form filling</li>
-                            <li>Screen scraping from legacy applications</li>
-                            <li>Workflow automation</li>
-                        </ul>
-                        <p>By containerizing the environment, we ensure that AI actions are isolated and can be easily reset or monitored.</p>
-                    </section>
-                `
-            },
-            'streamer-gpt': {
-                title: "Streamer GPT",
-                date: "2024",
-                tags: "#Node #AI #Twitch",
-                content: `
-                    <section id="intro">
-                        <p>An interactive AI assistant for Twitch that responds to chat commands with voice and text, creating engaging stream experiences.</p>
-                    </section>
-                    <section id="features">
-                        <h3>Features</h3>
-                        <ul>
-                            <li>Real-time voice synthesis for natural-sounding responses</li>
-                            <li>Context-aware conversations that remember previous interactions</li>
-                            <li>Integration with Twitch API for channel points and rewards</li>
-                            <li>Customizable personality and response style</li>
-                        </ul>
-                    </section>
-                    <section id="stack">
-                        <h3>Technical Stack</h3>
-                        <p>Built with Node.js, OpenAI GPT-4, ElevenLabs for voice synthesis, and the Twitch TMI.js library for chat integration.</p>
-                        <p>The system processes chat messages in real-time, generates contextual responses, and converts them to speech for an immersive viewer experience.</p>
-                    </section>
-                `
-            },
-            'linux-kernel': {
-                title: "Building a Custom Linux Kernel Module",
-                date: "December 2, 2024",
-                tags: "#Linux #C #Kernel",
-                content: `
-                    <section id="intro">
-                        <p>Kernel development offers direct hardware access and system-level control. This post walks through creating a custom kernel module from scratch.</p>
-                    </section>
-                    <section id="prerequisites">
-                        <h3>Prerequisites</h3>
-                        <p>You'll need the Linux kernel headers, build-essential package, and a basic understanding of C programming.</p>
-                    </section>
-                    <section id="hello">
-                        <h3>Hello World Module</h3>
-                        <pre><code>#include &lt;linux/module.h&gt;
-#include &lt;linux/kernel.h&gt;
-#include &lt;linux/init.h&gt;
-
-static int __init hello_init(void) {
-    printk(KERN_INFO "Hello, Kernel!\\n");
-    return 0;
-}
-
-static void __exit hello_exit(void) {
-    printk(KERN_INFO "Goodbye, Kernel!\\n");
-}
-
-module_init(hello_init);
-module_exit(hello_exit);
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("hyperkube");
-MODULE_DESCRIPTION("A simple kernel module");</code></pre>
-                    </section>
-                    <section id="compilation">
-                        <h3>Compilation and Loading</h3>
-                        <p>Use make with a proper Makefile, then insmod to load and rmmod to unload. Check dmesg for kernel log messages.</p>
-                    </section>
-                `
-            },
-            'vim-neovim': {
-                title: "Why I Switched from Vim to Neovim",
-                date: "August 21, 2024",
-                tags: "#Vim #Neovim #Tools",
-                content: `
-                    <section id="intro">
-                        <p>After years of using Vim, I made the switch to Neovim. Here's why it was worth it.</p>
-                    </section>
-                    <section id="improvements">
-                        <h3>Key Improvements</h3>
-                        <h4>1. Built-in LSP Support</h4>
-                        <p>Neovim's native LSP client provides IntelliSense-like features without heavy plugins. Autocompletion, go-to-definition, and refactoring work out of the box.</p>
-                        <h4>2. Lua Configuration</h4>
-                        <p>Lua is faster and more intuitive than VimScript. Configuration is cleaner and plugin development is more straightforward.</p>
-                        <h4>3. TreeSitter Integration</h4>
-                        <p>Superior syntax highlighting and code understanding through abstract syntax trees. Enables advanced features like smart text objects and refactoring.</p>
-                        <h4>4. Better Async Support</h4>
-                        <p>Modern async architecture means plugins don't block the editor. Background tasks run smoothly without freezing the UI.</p>
-                    </section>
-                    <section id="migration">
-                        <h3>Migration Tips</h3>
-                        <p>Your existing .vimrc works in Neovim, so you can migrate gradually. Start with init.lua and convert configs piece by piece.</p>
-                        <p>The ecosystem is vibrant with plugins like telescope.nvim, nvim-cmp, and lualine providing modern editor features.</p>
-                    </section>
-                `
-            }
-        };
-
-        // Generate Hierarchical Table of Contents
-        function generateTOC(postContent, tocElement) {
-            const sections = postContent.querySelectorAll('section[id]');
-            if (sections.length === 0) {
-                tocElement.innerHTML = '<li><a href="#" class="toc-item" style="color: #666;">No sections</a></li>';
-                return;
+            if (category === 'projects' && metadata.code_url) {
+                return { href: metadata.code_url, label: 'View Code' };
             }
 
-            // Build hierarchical structure
-            const tocStructure = [];
-            let currentH2 = null;
-
-            sections.forEach(section => {
-                // Each section contains exactly ONE heading - find which type it is
-                const heading = section.querySelector('h2, h3, h4');
-                if (!heading) return;
-
-                const headingLevel = heading.tagName; // 'H2', 'H3', or 'H4'
-                const title = (heading.dataset.title || heading.textContent).trim();
-
-                if (headingLevel === 'H2') {
-                    // Main category
-                    currentH2 = {
-                        id: section.id,
-                        title: title,
-                        subcategories: []
-                    };
-                    tocStructure.push(currentH2);
-                } else if (headingLevel === 'H3') {
-                    if (currentH2) {
-                        // Subcategory under current h2
-                        currentH2.subcategories.push({
-                            id: section.id,
-                            title: title
-                        });
-                    } else {
-                        // h3 without parent h2, treat as main category
-                        tocStructure.push({
-                            id: section.id,
-                            title: title,
-                            subcategories: []
-                        });
-                    }
-                }
-                // h4 headings are ignored in TOC (optional: you can add them as sub-subcategories)
-            });
-
-            // Build HTML
-            let tocHTML = '';
-            tocStructure.forEach(item => {
-                tocHTML += `<li><a href="#${item.id}" class="toc-item">${item.title}</a>`;
-                if (item.subcategories.length > 0) {
-                    tocHTML += '<ul>';
-                    item.subcategories.forEach(sub => {
-                        tocHTML += `<li><a href="#${sub.id}" class="toc-subitem">${sub.title}</a></li>`;
-                    });
-                    tocHTML += '</ul>';
-                }
-                tocHTML += '</li>';
-            });
-
-            tocElement.innerHTML = tocHTML;
-
-            // Add scroll spy for TOC (more stable than the old IntersectionObserver approach)
-            const tocLinks = tocElement.querySelectorAll('.toc-item, .toc-subitem');
-            const sectionList = Array.from(sections);
-            const nav = document.querySelector('nav');
-            const scrollOffset = (nav?.offsetHeight || 0) + 24; // account for sticky nav height
-            let activeSection = null;
-            let ticking = false;
-            let isManualScroll = false;
-            let manualScrollTimeout = null;
-
-            function highlightTocItem(sectionId) {
-                tocLinks.forEach(link => link.classList.remove('active'));
-                const activeLink = tocElement.querySelector(`a[href="#${sectionId}"]`);
-                if (activeLink) activeLink.classList.add('active');
+            if (category === 'publications' && metadata.publication_url) {
+                return { href: metadata.publication_url, label: 'View Publication' };
             }
 
-            function findActiveSection() {
-                const viewportTop = window.scrollY;
-                let bestId = sectionList[0]?.id || null;
-                let bestDistance = Number.POSITIVE_INFINITY;
+            return null;
+        }
 
-                sectionList.forEach(section => {
-                    const adjustedTop = section.getBoundingClientRect().top + window.scrollY - scrollOffset;
-                    const distance = Math.abs(adjustedTop - viewportTop);
-                    if (distance < bestDistance) {
-                        bestDistance = distance;
-                        bestId = section.id;
-                    }
-                });
+        function appendPostEndCta(post, postContent) {
+            const cta = getPostEndCtaSpec(post);
+            if (!cta) return;
 
-                return bestId;
-            }
+            // Avoid duplicates if the markdown already includes a CTA wrapper.
+            if (postContent.querySelector('.post-end-cta')) return;
 
-            function onScroll() {
-                if (isManualScroll || ticking) return;
-                ticking = true;
-                requestAnimationFrame(() => {
-                    const currentId = findActiveSection();
-                    if (currentId && currentId !== activeSection) {
-                        activeSection = currentId;
-                        highlightTocItem(activeSection);
-                    }
-                    ticking = false;
-                });
-            }
+            const wrapper = document.createElement('div');
+            wrapper.className = 'cta-wrapper post-end-cta';
 
-            window.addEventListener('scroll', onScroll, { passive: true });
+            const link = document.createElement('a');
+            link.className = 'cta-button';
+            link.href = cta.href;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = cta.label;
 
-            function startManualScroll(duration = 500) {
-                isManualScroll = true;
-                if (manualScrollTimeout) clearTimeout(manualScrollTimeout);
-                manualScrollTimeout = setTimeout(() => {
-                    isManualScroll = false;
-                    onScroll();
-                }, duration);
-            }
-
-            function scrollToSection(targetId, updateHash = true) {
-                const targetEl = document.getElementById(targetId);
-                if (!targetEl) return;
-
-                const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - scrollOffset;
-                activeSection = targetId;
-                highlightTocItem(targetId);
-                if (updateHash) history.replaceState(null, '', `#${targetId}`);
-
-                const distance = Math.abs(window.scrollY - targetTop);
-                const duration = Math.min(900, Math.max(350, distance * 0.6));
-                startManualScroll(duration);
-                window.scrollTo({ top: targetTop, behavior: 'smooth' });
-            }
-
-            // Highlight immediately when clicking TOC links and smooth-scroll manually to top-aligned heading
-            tocLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href').substring(1);
-                    scrollToSection(targetId);
-                });
-            });
-
-            // Sync TOC highlight to first visible section on initial load
-            // Note: Hash fragments are cleared on page load, so we always start at top
-            onScroll();
+            wrapper.appendChild(link);
+            postContent.appendChild(wrapper);
         }
 
         // Render post
         function renderPost(post, postContent, tocElement, postId) {
             document.title = post.title + " // hyperkube.dev";
+            if (post.category) {
+                document.body.dataset.postCategory = post.category;
+            } else {
+                delete document.body.dataset.postCategory;
+            }
+
             postContent.innerHTML = `
                 <header class="post-header">
                     <h1>${post.title}</h1>
@@ -1220,6 +800,8 @@ MODULE_DESCRIPTION("A simple kernel module");</code></pre>
                 </header>
                 ${post.content}
             `;
+
+            appendPostEndCta(post, postContent);
 
             // Ensure page stays at top after content loads
             requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
@@ -1341,12 +923,6 @@ MODULE_DESCRIPTION("A simple kernel module");</code></pre>
 
             // Try to load from markdown first
             let post = await loadPost(postId);
-
-            // Fallback to legacy posts object only if markdown is missing
-            if (!post && posts[postId]) {
-                post = posts[postId];
-            }
-
             if (post) {
                 renderPost(post, postContent, tocElement, postId);
             } else {

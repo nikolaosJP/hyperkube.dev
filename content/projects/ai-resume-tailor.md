@@ -2,6 +2,7 @@
 title: AI Resume Tailor
 date: August 22, 2024
 tags: "#AI #GeminiAPI #LaTeX #Automation"
+code_url: https://github.com/nikolaosJP/Projects/tree/main/Resume-Tailor
 ---
 
 ## Why This Exists
@@ -35,5 +36,3 @@ Under the hood it’s just **Python + Gemini API + LaTeX**, but the productivity
 - **Runtime**: ~10 seconds per tailored resume
 
 It’s not magic. It’s simply what happens when you stop rewriting the same bullet points for the 47th time and let automation do the repetitive suffering for you.
-
-[View on GitHub](https://github.com/nikolaosJP/Projects/tree/main/Resume-Tailor)

@@ -304,15 +304,15 @@
         <h3>2024</h3>
         <ul class="post-list">
             <li>
-                <a href="post.html?id=rent-vs-buy" class="post-item">
+                <a href="post.html?id=ai-resume-tailor" class="post-item">
                     <span class="post-date">Aug 22</span>
-                    <span class="post-title">Rent vs Buy Simulator</span>
+                    <span class="post-title">AI Resume Tailor</span>
                 </a>
             </li>
             <li>
-                <a href="post.html?id=ai-resume-tailor" class="post-item">
+                <a href="post.html?id=rent-vs-buy" class="post-item">
                     <span class="post-date">Feb 14</span>
-                    <span class="post-title">AI Resume Tailor</span>
+                    <span class="post-title">Rent vs Buy Simulator</span>
                 </a>
             </li>
         </ul>
@@ -344,13 +344,13 @@
             <li>
                 <a href="post.html?id=style-transfer" class="post-item">
                     <span class="post-date">May 15</span>
-                    <span class="post-title">Neural Style Transfer</span>
+                    <span class="post-title">Neural Style Transfer (pretrained VGG19)</span>
                 </a>
             </li>
             <li>
                 <a href="post.html?id=mnist-classification" class="post-item">
                     <span class="post-date">Mar 10</span>
-                    <span class="post-title">MNIST Digit Classifier: Teaching a Neural Net to Read</span>
+                    <span class="post-title">MNIST: The "Hello World" of deep learning</span>
                 </a>
             </li>
         </ul>
@@ -380,90 +380,6 @@
         }
         window.handleNavEnter = handleNavEnter;
         window.handleNavLeave = handleNavLeave;
-
-        // Ensure project list titles reflect markdown frontmatter
-        function parseFrontmatter(markdown) {
-            const fm = /^---\s*\n([\s\S]*?)\n---/;
-            const match = markdown.match(fm);
-            if (!match) return {};
-            return match[1].split('\n').reduce((acc, line) => {
-                const [k, ...rest] = line.split(':');
-                if (k && rest.length) acc[k.trim()] = rest.join(':').trim();
-                return acc;
-            }, {});
-        }
-
-        function extractIdFromHref(href) {
-            if (!href) return null;
-            const match = href.match(/[?&]id=([^&]+)/);
-            return match ? decodeURIComponent(match[1]) : null;
-        }
-
-        const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
-
-        function parseDateString(dateStr) {
-            if (!dateStr) return null;
-            const parsed = new Date(dateStr);
-            return Number.isNaN(parsed.getTime()) ? null : parsed;
-        }
-
-        function formatDate(date) {
-            return dateFormatter.format(date);
-        }
-
-        async function refreshProjectMeta() {
-            const listItems = Array.from(document.querySelectorAll('.post-list li'));
-            const enriched = await Promise.all(listItems.map(async (li) => {
-                const item = li.querySelector('.post-item');
-                const href = item?.getAttribute('href');
-                const postId = extractIdFromHref(href);
-                if (!postId) return { li, item };
-
-                try {
-                    const res = await fetch(`content/projects/${postId}.md`, { cache: 'no-cache' });
-                    if (!res.ok) return { li, item };
-                    const text = await res.text();
-                    const meta = parseFrontmatter(text);
-                    const parsedDate = parseDateString(meta.date);
-                    return { li, item, meta, parsedDate };
-                } catch (err) {
-                    return { li, item };
-                }
-            }));
-
-            enriched.forEach(({ li, item, meta, parsedDate }) => {
-                if (!li || !item) return;
-                if (meta?.title) {
-                    const titleEl = item.querySelector('.post-title');
-                    if (titleEl) titleEl.textContent = meta.title;
-                }
-                if (parsedDate) {
-                    item.dataset.timestamp = parsedDate.getTime();
-                    const dateEl = item.querySelector('.post-date');
-                    if (dateEl) dateEl.textContent = formatDate(parsedDate);
-                }
-            });
-
-            document.querySelectorAll('.post-list').forEach((list) => {
-                const items = Array.from(list.querySelectorAll('li'));
-                items.sort((a, b) => {
-                    const tsA = Number((a.querySelector('.post-item')?.dataset.timestamp) || 0);
-                    const tsB = Number((b.querySelector('.post-item')?.dataset.timestamp) || 0);
-                    return tsB - tsA;
-                });
-                items.forEach((item) => list.appendChild(item));
-            });
-        }
-
-        function runWhenReady() {
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', refreshProjectMeta);
-            } else {
-                refreshProjectMeta();
-            }
-        }
-
-        runWhenReady();
 
         // Mobile nav toggle
         (function setupMobileMenu() {

@@ -2,6 +2,7 @@
 title: Flood risk perceptions in Florida cities
 date: 2024-10-24
 tags: "#flooding #adaptation #risk perception"
+publication_url: https://doi.org/10.1007/s11027-024-10129-1
 ---
 
 **Full article title:** *A tale of two (Florida) cities: perceptions of flooding risk and adaptation in Tampa’s Hyde Park and Saint Augustine*  
@@ -43,7 +44,3 @@ The study’s conclusion is simple and quietly profound:
 you cannot design adaptation pathways without first understanding the psychological landscape.  
 Engineering solves the water problem.  
 Understanding people solves everything else.
-
-<div class="cta-wrapper">
-  <a class="cta-button" href="https://doi.org/10.1007/s11027-024-10129-1" target="_blank" rel="noopener noreferrer">View DOI</a>
-</div>
