@@ -183,7 +183,7 @@ Try: help to list available commands, or simply say something to communicate wit
 
   Can they come up with a strategy that guarantees at least 9 of them survive, no matter how the hats are assigned?
 
-Type your solution (free-text) or commands: help, hint, reveal, quit`,
+Commands: help, hint, reveal, quit`,
             hint: `Hint: Prisoner #1 can "sacrifice" their guess to transmit 1 bit of information to everyone else.
 Think: odd/even (parity) of a color count.`,
             solution: `Solution (guarantees 9 survivors):
@@ -198,20 +198,7 @@ Think: odd/even (parity) of a color count.`,
    - If their counted reds ahead match the announced parity, their hat is BLUE; otherwise it’s RED.
 
 Result: Prisoner #1 might die, but prisoners #2–#10 all know their hat color with certainty → at least 9 survive.`,
-            grader: (raw) => {
-                const text = (raw || '').toLowerCase();
-                const hasParity = /\b(parity|odd|even|xor|mod\s*2|modulo)\b/.test(text);
-                const mentionsFirst = /\b(prisoner\s*#?1|#?1\b|first|back)\b/.test(text);
-                const mentionsCountColor = /\b(count|number|how many)\b/.test(text) && /\b(red|blue)\b/.test(text);
-                const mentionsDeduce = /\b(deduce|infer|determin|figure out|know)\b/.test(text) && /\b(own|my)\b/.test(text);
-                const score = [hasParity, mentionsFirst, mentionsCountColor, mentionsDeduce].filter(Boolean).length;
-
-                return {
-                    correct: score >= 3,
-                    score,
-                    checks: { hasParity, mentionsFirst, mentionsCountColor, mentionsDeduce }
-                };
-            }
+            // No automatic grading; this is a hint/reveal style riddle.
         }
     };
 
@@ -229,7 +216,7 @@ Result: Prisoner #1 might die, but prisoners #2–#10 all know their hat color w
         if (activeRiddleSession) return 'A riddle is already running. Type quit to exit it.';
 
         enterGameMode();
-        activeRiddleSession = { riddleId, solved: false, attempts: 0 };
+        activeRiddleSession = { riddleId };
         return `${riddle.title}
 Category: ${riddle.category}
 
@@ -262,28 +249,7 @@ ${riddle.prompt}`;
             return riddle.solution;
         }
 
-        if (activeRiddleSession.solved) {
-            return `Already solved. Type 'reveal' for the full solution, or 'quit' to exit.`;
-        }
-
-        activeRiddleSession.attempts += 1;
-        const grade = riddle.grader(input);
-
-        const missing = [];
-        if (!grade.checks.hasParity) missing.push('parity/odd-even bit');
-        if (!grade.checks.mentionsFirst) missing.push('prisoner #1 sends the bit');
-        if (!grade.checks.mentionsCountColor) missing.push('count hats ahead + color');
-        if (!grade.checks.mentionsDeduce) missing.push('others deduce own hat');
-
-        if (grade.correct) {
-            activeRiddleSession.solved = true;
-            return `Correct.\nType 'reveal' to see the canonical solution, or 'quit' to exit.`;
-        }
-
-        const nextHint = missing.length
-            ? `Missing piece(s): ${missing.join(', ')}.`
-            : `Close, but missing a key detail.`;
-        return `Not quite.\n${nextHint}\nTry again, or type 'hint'.`;
+        return `No grading mode.\nType 'hint' for a nudge, 'reveal' for the solution, or 'quit' to exit.`;
     }
 
     const cmds = {
@@ -390,7 +356,7 @@ Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
         ),
         riddles: () => (
 `Riddles:
-  - hats10  (${riddleBank.hats10.category}) — ${riddleBank.hats10.title}
+  - riddle hats10  (${riddleBank.hats10.category}) — ${riddleBank.hats10.title}
 
 Run: riddle hats10`
         ),
