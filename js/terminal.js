@@ -155,6 +155,116 @@ Try: help to list available commands, or simply say something to communicate wit
 
     const historyLog = [];
 
+    const riddleBank = {
+        hats10: {
+            id: 'hats10',
+            title: 'The Hat Line (10 Prisoners)',
+            category: 'Logic / Deduction',
+            prompt: `• 10 prisoners are marched into a hallway and lined up single-file like the world’s least fun conga line. A guard walks down the row
+  and drops a hat on each head. The hats come in exactly two colors: red and blue. That’s it. No “maybe teal.” No “I’m colorblind,
+  your honor.” Just red or blue, because the universe loves binary choices when your life depends on them.
+
+  Here’s the setup:
+
+  - Everyone faces forward, so you can only see hats in front of you.
+  - Prisoner #1 (at the very back) can see 9 hats.
+  - Prisoner #2 can see 8 hats.
+  - …
+  - Prisoner #10 (at the front) sees 0 hats, which is very on-brand for being last in line: no information, but still fully judged.
+  - Nobody can see their own hat.
+  - Starting with #1 and moving forward, each prisoner must say exactly one word: “red” or “blue.”
+  - Everyone hears everything that’s said.
+  - Guess right: live. Guess wrong: die.
+  - Before the hats go on, the prisoners are allowed to agree on a strategy, like a doomed fantasy football league.
+
+  The question is:
+
+  Can they come up with a strategy that guarantees at least 9 of them survive, no matter how the hats are assigned?
+
+Type your solution (free-text) or commands: hint, reveal, quit`,
+            hint: `Hint: Prisoner #1 can "sacrifice" their guess to transmit 1 bit of information to everyone else.
+Think: odd/even (parity) of a color count.`,
+            solution: `Solution (guarantees 9 survivors):
+1) Agree on a rule: Prisoner #1 announces parity of (say) RED hats in front.
+   - If #1 sees an EVEN number of red hats ahead, they say "red".
+   - If #1 sees an ODD number of red hats ahead, they say "blue".
+   (This first call may be wrong about their own hat; it's a message.)
+
+2) Now each prisoner #2–#10 can deduce their own hat:
+   - They can see all hats ahead, and they’ve heard the parity message.
+   - They keep track of how many red hats are still "unaccounted for" based on what they see ahead and what earlier prisoners must have had.
+   - If their counted reds ahead match the announced parity, their hat is BLUE; otherwise it’s RED.
+
+Result: Prisoner #1 might die, but prisoners #2–#10 all know their hat color with certainty → at least 9 survive.`,
+            grader: (raw) => {
+                const text = (raw || '').toLowerCase();
+                const hasParity = /\b(parity|odd|even|xor|mod\s*2|modulo)\b/.test(text);
+                const mentionsFirst = /\b(prisoner\s*#?1|#?1\b|first|back)\b/.test(text);
+                const mentionsCountColor = /\b(count|number|how many)\b/.test(text) && /\b(red|blue)\b/.test(text);
+                const mentionsDeduce = /\b(deduce|infer|determin|figure out|know)\b/.test(text) && /\b(own|my)\b/.test(text);
+                const score = [hasParity, mentionsFirst, mentionsCountColor, mentionsDeduce].filter(Boolean).length;
+
+                return {
+                    correct: score >= 3,
+                    score,
+                    checks: { hasParity, mentionsFirst, mentionsCountColor, mentionsDeduce }
+                };
+            }
+        }
+    };
+
+    let activeRiddleSession = null;
+
+    function stopActiveRiddleSession() {
+        if (!activeRiddleSession) return;
+        activeRiddleSession = null;
+        exitGameMode();
+    }
+
+    function startRiddleSession(riddleId) {
+        const riddle = riddleBank[riddleId];
+        if (!riddle) return `Unknown riddle "${riddleId}". Try: riddles`;
+        if (activeRiddleSession) return 'A riddle is already running. Type quit to exit it.';
+
+        enterGameMode();
+        activeRiddleSession = { riddleId, solved: false };
+        return `${riddle.title}
+Category: ${riddle.category}
+
+${riddle.prompt}`;
+    }
+
+    function handleRiddleInput(rawInput) {
+        const riddle = riddleBank[activeRiddleSession?.riddleId];
+        if (!riddle) {
+            stopActiveRiddleSession();
+            return 'Riddle session ended (missing riddle).';
+        }
+
+        const input = (rawInput || '').trim();
+        const lower = input.toLowerCase();
+        if (!input) return null;
+
+        if (lower === 'quit' || lower === 'exit') {
+            stopActiveRiddleSession();
+            return 'Exited riddles.';
+        }
+        if (lower === 'hint') {
+            return riddle.hint;
+        }
+        if (lower === 'reveal' || lower === 'answer' || lower === 'solution') {
+            stopActiveRiddleSession();
+            return riddle.solution;
+        }
+
+        const grade = riddle.grader(input);
+        const verdict = grade.correct ? 'Correct.' : 'Not quite.';
+        const why = `Checks: parity=${grade.checks.hasParity ? 'yes' : 'no'}, #1=${grade.checks.mentionsFirst ? 'yes' : 'no'}, count+color=${grade.checks.mentionsCountColor ? 'yes' : 'no'}, deduce=${grade.checks.mentionsDeduce ? 'yes' : 'no'}`;
+
+        stopActiveRiddleSession();
+        return `${verdict}\n${why}\n\n${riddle.solution}`;
+    }
+
     const cmds = {
         help: () => helpText,
         cd: () => blockedFsMessage('cd'),
@@ -254,8 +364,20 @@ Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
         ),
         games: () => (
 `Games:
-  - zork: Classic text adventure. Type 'zork' to explore The Great Underground Empire.`
+  - zork: Classic text adventure. Type 'zork' to explore The Great Underground Empire.
+  - riddles: Bite-sized logic puzzles. Type 'riddles' to list.`
         ),
+        riddles: () => (
+`Riddles:
+  - hats10  (${riddleBank.hats10.category}) — ${riddleBank.hats10.title}
+
+Run: riddle hats10`
+        ),
+        riddle: (args) => {
+            const id = (args[1] || '').trim();
+            if (!id) return cmds.riddles();
+            return startRiddleSession(id);
+        },
         zork: () => {
             if (window.ZorkGame && !window.ZorkGame.isRunning()) {
                 enterGameMode();
@@ -274,6 +396,10 @@ Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
                 window.ZorkGame.stop();
                 exitGameMode();
                 return "Exited Zork.";
+            }
+            if (activeRiddleSession) {
+                stopActiveRiddleSession();
+                return "Exited riddles.";
             }
             return "No game is currently running.";
         }
@@ -493,11 +619,13 @@ Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
 
         // Check if Zork is running - use minimal prompt
         const isZorkRunning = window.ZorkGame && window.ZorkGame.isRunning();
+        const isRiddleRunning = Boolean(activeRiddleSession);
+        const isInteractiveRunning = isZorkRunning || isRiddleRunning;
 
         termDisplay.insertBefore(
             Object.assign(document.createElement('div'), {
-                innerHTML: isZorkRunning ? val : `<span class="prompt-command">${TERMINAL_PROMPT}</span>&nbsp;${val}`,
-                style: isZorkRunning ? 'margin-bottom:2px;color:#ccc' : 'margin-bottom:6px'
+                innerHTML: isInteractiveRunning ? val : `<span class="prompt-command">${TERMINAL_PROMPT}</span>&nbsp;${val}`,
+                style: isInteractiveRunning ? 'margin-bottom:2px;color:#ccc' : 'margin-bottom:6px'
             }),
             termLine
         );
@@ -519,6 +647,12 @@ Theme: ${terminalWindow?.dataset.termTheme || "matrix"}`
             requestAnimationFrame(() => {
                 termDisplay.scrollTop = termDisplay.scrollHeight;
             });
+            return;
+        }
+
+        if (isRiddleRunning) {
+            const output = handleRiddleInput(val);
+            renderOutput(output);
             return;
         }
 
