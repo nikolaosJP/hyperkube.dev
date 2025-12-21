@@ -88,7 +88,7 @@
 
     function getHelpLines() {
         const lines = ['games         - List available console games'];
-        const banned = ['zork', 'doom', 'riddles', 'riddle'];
+        const banned = ['zork', 'doom', 'riddles', 'riddle', 'arena'];
 
         for (const game of list()) {
             if (!Array.isArray(game.help) || game.help.length === 0) continue;

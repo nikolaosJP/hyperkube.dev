@@ -188,6 +188,10 @@
         .hero-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin-bottom: 2rem; }
         
         /* --- TERMINAL FIX START (Strict Containment) --- */
+        .terminal-shell {
+            position: relative;
+            width: 100%;
+        }
         .terminal-window { 
             background: #0f0f0f; 
             border: 1px solid var(--border-color); 
@@ -257,6 +261,52 @@
             z-index: 9999;
             margin: 0;
             box-shadow: 0 25px 70px rgba(0,0,0,0.75);
+        }
+        .terminal-mascot {
+            position: absolute;
+            right: -20px;
+            bottom: -60px;
+            z-index: 5;
+            pointer-events: auto;
+            line-height: 0;
+        }
+        .terminal-mascot.hidden { display: none; }
+        .terminal-mascot img {
+            width: 580px;
+            height: auto;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            display: block;
+            opacity: 0.9;
+        }
+        .terminal-mascot-close {
+            position: absolute;
+            top: -20px;
+            right: 65px;  /* Positioned to the right, near terminal edge */
+            padding: 8px 12px;
+            border-radius: 2px; /* Boxy/square corners */
+            border: 1px solid var(--terminal-green);
+            background: rgba(0, 0, 0, 0.85);
+            color: var(--terminal-green);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: bold;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .15s ease;
+            z-index: 11;
+            white-space: nowrap;
+        }
+        .terminal-mascot-close:hover {
+            background: var(--terminal-green);
+            color: #000;
+            transform: scale(1.05);
         }
         .hero-wrapper .terminal-window.terminal-expanded {
             width: min(1100px, 92vw);
@@ -590,30 +640,36 @@
                 Specializing in high-frequency trading microstructure modeling, quantitative optimization, and fully autonomous, LLM-augmented trading systems.
             </p>
 
-            <div class="terminal-window" onclick="focusTerminal()">
-                <div class="terminal-bar">
-                    <div class="terminal-dots">
-                        <div class="dot red"></div><div class="dot yellow"></div><div class="dot green-dot"></div>
+            <div class="terminal-shell">
+                <div class="terminal-window" onclick="focusTerminal()">
+                    <div class="terminal-bar">
+                        <div class="terminal-dots">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green-dot"></div>
+                        </div>
+                        <div class="terminal-actions">
+                            <button id="game-exit-btn" style="display: none; background: rgba(220, 38, 38, 0.8); color: white; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 10px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 8px;">
+                                Exit Game
+                            </button>
+                            <button class="terminal-expand" id="terminal-expand" aria-label="Expand terminal" aria-pressed="false" onclick="toggleTerminalExpand(event)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <polyline points="9 21 3 21 3 15"></polyline>
+                                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="terminal-actions">
-                        <button id="game-exit-btn" style="display: none; background: rgba(220, 38, 38, 0.8); color: white; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 10px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 8px;">
-                            Exit Game
-                        </button>
-                        <button class="terminal-expand" id="terminal-expand" aria-label="Expand terminal" aria-pressed="false" onclick="toggleTerminalExpand(event)">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <polyline points="9 21 3 21 3 15"></polyline>
-                                <line x1="21" y1="3" x2="14" y2="10"></line>
-                                <line x1="3" y1="21" x2="10" y2="14"></line>
-                            </svg>
-                        </button>
+                    <div class="terminal-body" id="term-display">
+                        <div id="boot-log"></div>
+                        <div style="display:flex" id="term-current-line">
+                            <span class="prompt-command">[guest@hyperkube.dev ~]$</span>
+                            <input type="text" id="playground-input" class="term-input" autocomplete="off">
+                        </div>
                     </div>
-                </div>
-                <div class="terminal-body" id="term-display">
-                    <div id="boot-log"></div>
-                    <div style="display:flex" id="term-current-line">
-                        <span class="prompt-command">[guest@hyperkube.dev ~]$</span>
-                        <input type="text" id="playground-input" class="term-input" autocomplete="off">
+                    <div class="terminal-mascot" id="terminal-mascot" aria-live="polite">
+                        <button class="terminal-mascot-close" id="terminal-mascot-close" aria-label="Dismiss mascot" onclick="this.closest('.terminal-mascot').classList.add('hidden'); event.stopPropagation();">Close popup</button>
+                        <img src="js/assets/astro_nick.jpeg" alt="Astronaut mascot">
                     </div>
                 </div>
             </div>
@@ -639,7 +695,7 @@
             <div id="tab-about" class="tab-content active">
                 <div class="about-intro">
                     <div class="about-text">
-                       Hi, I'm a former environmental scientist turned fintech researcher who occasionally jumps out of planes and always says yes to good pastries & souvlaki.
+                       Hi, I'm Nick! I'm a former environmental scientist turned fintech researcher who occasionally jumps out of planes and always says yes to good pastries & souvlaki.
                     </div>
                 </div>
 

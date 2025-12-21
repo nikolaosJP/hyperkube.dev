@@ -13,6 +13,8 @@
     const terminalOverlay = document.getElementById('terminal-overlay');
     const terminalExpandButton = document.getElementById('terminal-expand');
     const gameExitButton = document.getElementById('game-exit-btn');
+    const terminalMascot = document.getElementById('terminal-mascot');
+    const terminalMascotClose = document.getElementById('terminal-mascot-close');
     
     // Hide initially
     if (gameExitButton) gameExitButton.style.display = 'none';
@@ -32,6 +34,13 @@
                     console.warn('[terminal] No active game found to stop');
                 }
             }
+        });
+    }
+
+    if (terminalMascot && terminalMascotClose) {
+        terminalMascotClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            terminalMascot.classList.add('hidden');
         });
     }
 
@@ -195,6 +204,10 @@
         const sorted = lines
             .slice()
             .filter(Boolean)
+            .filter((line) => {
+                const firstWord = String(line).trim().toLowerCase().split(/\s+/)[0];
+                return firstWord !== 'arena';
+            })
             .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
         return `Commands:\n${sorted.map((line) => `  ${line}`).join('\n')}`;
     }

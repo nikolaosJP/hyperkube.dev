@@ -92,9 +92,7 @@
         id: GAME_ID,
         title: 'The Elder Scrolls: Arena',
         description: 'The Elder Scrolls: Arena, an open-world RPG and the grandfather of Skyrim.',
-        help: [
-            'arena         - The Elder Scrolls: Arena'
-        ],
+        help: [],
         commands: (ctx) => ({
             arena: () => startGame(ctx)
         }),
