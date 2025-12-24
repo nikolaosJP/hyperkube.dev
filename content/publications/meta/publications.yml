@@ -2,9 +2,9 @@ count: 11
 publications:
   - short_title: "The Social Life of Stocks"
     title: "Covariance-Aware Simplex Projection for Cardinality-Constrained Portfolio Optimization"
-    date: 2025-12-20
+    date: 2025-12-23
     tags: [investing, risk, optimization, quantfinance]
-    link: https://example.com/social-life-of-stocks
+    link: https://arxiv.org/abs/2512.19986
   - short_title: "Flood risk perceptions in Florida cities"
     title: "A tale of two (Florida) cities: perceptions of flooding risk and adaptation in Tampa's Hyde Park and Saint Augustine"
     date: 2024-10-24

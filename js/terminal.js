@@ -263,7 +263,7 @@ Try: help to list available commands, or simply say something to communicate wit
         ),
         publications: () => (
 `Publications:
-  - The Social Life of Stocks (2025-12-20)
+  - The Social Life of Stocks (2025-12-23)
   - Flood risk perceptions in Florida cities (2024-10-24)
   - Residential demand response in Ottawa (2023-07-24)
   - Residential DR determinants in Ontario (2021-10-16)

@@ -1,8 +1,8 @@
 ---
 title: The Social Life of Stocks: How Correlations Drive Portfolio Risk
-date: 2025-12-20
+date: 2025-12-23
 tags: "#investing #risk #optimization #quantfinance"
-publication_url: https://github.com/nikolaosJP/CASPer/tree/main
+publication_url: https://arxiv.org/abs/2512.19986
 ---
 
 **Full paper title (preprint):**  
